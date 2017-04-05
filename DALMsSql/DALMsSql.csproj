@@ -55,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBSession.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSessionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

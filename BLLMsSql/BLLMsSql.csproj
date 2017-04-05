@@ -48,9 +48,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BLL.tt</DependentUpon>
     </Compile>
+    <Compile Include="BLLSession.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BLLSession.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSessionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DI\DI.csproj">
+      <Project>{0C61343B-BCCF-4809-A902-2C765A8B0BA4}</Project>
+      <Name>DI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IBLL\IBLL.csproj">
       <Project>{4791ebd6-18f7-4b3f-a61c-b7c100b311d5}</Project>
       <Name>IBLL</Name>
@@ -68,6 +78,10 @@
     <Content Include="BLL.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BLL.cs</LastGenOutput>
+    </Content>
+    <Content Include="BLLSession.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BLLSession.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

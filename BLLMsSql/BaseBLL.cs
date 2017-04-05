@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IBLL; 
+using IBLL;
 using System.Linq.Expressions;
 using IDAL;
+using DI;
 
 namespace BLLMsSql
 {
@@ -13,6 +14,19 @@ namespace BLLMsSql
         protected IBaseDAL<T> iDAL;
 
         public abstract void SetDAL();
+
+        private IDBSession _DBSession;
+        public IDBSession DBSession
+        {
+            get
+            {
+                if (_DBSession==null)
+                {
+                    _DBSession = SpringHelper.GetObject<IDBSession>("DBSessionFactory");
+                }
+                return _DBSession;
+            }
+        }
         public int Add(T entity)
         {
             return iDAL.Add(entity);
