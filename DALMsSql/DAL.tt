@@ -17,14 +17,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Models;
-namespace IDAL
+using IDAL;
+namespace DALMsSql
 {
 <#
 
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e =>e.Name))
 {
 #>
-public partial interface I<#= entity.Name#>DAL:IBaseDAL<<#=entity.Name#>>
+public partial class <#= entity.Name#>DAL:BaseDAL<<#=entity.Name#>>,I<#= entity.Name#>DAL
 {
 }
 <#

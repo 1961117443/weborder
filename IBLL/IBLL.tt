@@ -17,14 +17,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Models;
-namespace IDAL
+namespace IBLL
 {
 <#
 
 foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e =>e.Name))
 {
 #>
-public partial interface I<#= entity.Name#>DAL:IBaseDAL<<#=entity.Name#>>
+public partial interface I<#= entity.Name#>BLL:IBaseBLL<<#=entity.Name#>>
 {
 }
 <#
