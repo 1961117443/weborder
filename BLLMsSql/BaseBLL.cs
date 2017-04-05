@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IBLL;
-using System.Data.Entity;
+using IBLL; 
 using System.Linq.Expressions;
 using IDAL;
 
 namespace BLLMsSql
 {
-    public class BaseBLL<T> : IBaseBLL<T> where T : class, new()
+    public abstract class BaseBLL<T> : IBaseBLL<T> where T : class, new()
     {
         protected IBaseDAL<T> iDAL;
+
+        public abstract void SetDAL();
         public int Add(T entity)
         {
             return iDAL.Add(entity);

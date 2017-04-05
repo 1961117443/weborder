@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WebOrderUI.Models;
+using MvcWebOrder.Models;
 
-namespace WebOrderUI.Controllers
+namespace MvcWebOrder.Controllers
 {
     [Authorize]
     public class AccountController : Controller

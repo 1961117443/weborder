@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using WebOrderUI.Models;
+using MvcWebOrder.Models;
 
-namespace WebOrderUI
+namespace MvcWebOrder
 {
     public partial class Startup
     {

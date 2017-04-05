@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(WebOrderUI.Startup))]
-namespace WebOrderUI
+[assembly: OwinStartupAttribute(typeof(MvcWebOrder.Startup))]
+namespace MvcWebOrder
 {
     public partial class Startup
     {

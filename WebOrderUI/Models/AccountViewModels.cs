@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebOrderUI.Models
+namespace MvcWebOrder.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WebOrderUI
+namespace MvcWebOrder
 {
     public class BundleConfig
     {

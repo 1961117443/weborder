@@ -50,6 +50,11 @@
       <DependentUpon>DAL.tt</DependentUpon>
     </Compile>
     <Compile Include="DBContextFactory.cs" />
+    <Compile Include="DBSession.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBSession.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +71,10 @@
     <Content Include="DAL.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DAL.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBSession.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DBSession.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
