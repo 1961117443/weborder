@@ -28,5 +28,6 @@ public partial class UserInfoBLL:BaseBLL<UserInfo>,IUserInfoBLL
     {
 		iDAL= DBSession.IUserInfoDAL;
     }
+        
 }
 }

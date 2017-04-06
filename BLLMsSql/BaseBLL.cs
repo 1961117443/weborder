@@ -22,10 +22,15 @@ namespace BLLMsSql
             {
                 if (_DBSession==null)
                 {
-                    _DBSession = SpringHelper.GetObject<IDBSession>("DBSessionFactory");
+                    _DBSession = SpringHelper.GetObject<IDBSessionFactory>("DBSessionFactory").GetDBSession();
+                     
                 }
                 return _DBSession;
             }
+        }
+        public BaseBLL()
+        {
+            SetDAL();
         }
         public int Add(T entity)
         {
@@ -42,9 +47,9 @@ namespace BLLMsSql
             return iDAL.Del(entity);
         }
 
-        public List<T> GetListBy<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
+        public List<T> GetList<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
         {
-            return iDAL.GetListBy<TKey>(whereLambda, orderLambda);
+            return iDAL.GetList<TKey>(whereLambda, orderLambda);
         }
 
         public List<T> GetPageList<TKey>(int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
@@ -65,6 +70,16 @@ namespace BLLMsSql
         public int Modify(T entity, Expression<Func<T, bool>> whereLambda, params string[] propNames)
         {
             return iDAL.Modify(entity, whereLambda, propNames);
+        }
+
+        public List<T> GetList()
+        {
+            return iDAL.GetList();
+        }
+
+        public List<T> GetList(Expression<Func<T, bool>> whereLambda)
+        {
+            return iDAL.GetList(whereLambda);
         }
     }
 }

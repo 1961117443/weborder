@@ -13,7 +13,9 @@ namespace IBLL
         int Del(Expression<Func<T, bool>> delWhere);
         int Modify(T entity, params string[] proNames);
         int Modify(T entity, Expression<Func<T, bool>> whereLambda, params string[] propNames);
-        List<T> GetListBy<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda);
+        List<T> GetList();
+        List<T> GetList(Expression<Func<T, bool>> whereLambda);
+        List<T> GetList<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda);
         List<T> GetPageList<TKey>(int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda);
         List<T> GetPageList<TKey>(int pageIndex, int pageSize, ref int totalCount, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda, bool isAsc);
     }

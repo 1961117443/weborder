@@ -44,7 +44,7 @@ namespace DALMsSql
             return db.SaveChanges();            
         }
 
-        public List<T> GetListBy<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
+        public List<T> GetList<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
         {
             return db.Set<T>().Where(whereLambda).OrderBy(orderLambda).ToList();
         }
@@ -106,6 +106,16 @@ namespace DALMsSql
                 entry.Property(prop).IsModified = true;
             }
             return db.SaveChanges();
+        }
+
+        public List<T> GetList()
+        {
+            return db.Set<T>().ToList();
+        }
+
+        public List<T> GetList(Expression<Func<T, bool>> whereLambda)
+        {
+            return db.Set<T>().Where(whereLambda).ToList();
         }
     }
 }
