@@ -68,6 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBWebOrder.edmx</DependentUpon>
     </Compile>
+    <Compile Include="FormatModel\AjaxMsgModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sectionbar.cs">
       <DependentUpon>DBWebOrder.tt</DependentUpon>

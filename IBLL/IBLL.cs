@@ -16,5 +16,6 @@ public partial interface ISectionbarBLL:IBaseBLL<Sectionbar>
 }
 public partial interface IUserInfoBLL:IBaseBLL<UserInfo>
 {
+        UserInfo Login(string userName, string passWord);
 }
 }

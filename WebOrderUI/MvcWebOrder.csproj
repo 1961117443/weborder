@@ -194,12 +194,21 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\login.css" />
+    <Content Include="EasyUI\changelog.txt" />
+    <Content Include="EasyUI\easyloader.js" />
+    <Content Include="EasyUI\jquery.easyui.min.js" />
+    <Content Include="EasyUI\jquery.easyui.mobile.js" />
+    <Content Include="EasyUI\jquery.min.js" />
+    <Content Include="EasyUI\license_freeware.txt" />
+    <Content Include="EasyUI\readme.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\order.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -211,6 +220,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\userjs\login.js" />
+    <Content Include="Scripts\userjs\processingajaxmsg.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -247,9 +258,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="EasyUI\demo-mobile\" />
+    <Folder Include="EasyUI\demo\" />
+    <Folder Include="EasyUI\locale\" />
+    <Folder Include="EasyUI\plugins\" />
+    <Folder Include="EasyUI\src\" />
+    <Folder Include="EasyUI\themes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
