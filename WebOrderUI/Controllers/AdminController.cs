@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Models;
+using Common;
 namespace MvcWebOrder.Controllers
 {
     public class AdminController : Controller
@@ -7,11 +8,7 @@ namespace MvcWebOrder.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            // Old
-            //OperContext oc = new OperContext(); 
-            OperContext oc = OperContext.CurrentOperContext;
-            var lis = oc.BLLSession.IUserInfoBLL.GetList();
-            return Content(lis.Count.ToString());
+            return View();
         }
 
         /// <summary>
@@ -41,11 +38,11 @@ namespace MvcWebOrder.Controllers
                 Session["loginUser"] = user;
                 //保存cookie
                 //返回ajax信息
-                return oc.PackagingAjaxMsg("ok", "登录成功", null, "/Admin/Index");
+                return oc.PackagingAjaxMsg(AjaxStatu.ok, "登录成功", null, "/Admin/Index");
             }
             else
             {
-                return oc.PackagingAjaxMsg("err", "登录失败", null, "");
+                return oc.PackagingAjaxMsg(AjaxStatu.err, "登录失败", null, "");
             }
 
         }

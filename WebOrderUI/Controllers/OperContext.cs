@@ -7,6 +7,7 @@ using DI;
 using System.Runtime.Remoting.Messaging;
 using System.Web.Mvc;
 using Models;
+using Common;
 
 namespace MvcWebOrder.Controllers
 {
@@ -53,8 +54,8 @@ namespace MvcWebOrder.Controllers
         }
         #endregion
 
-        #region 把ajax返回值封装成jsoon格式返回
-        public ActionResult PackagingAjaxMsg(string statu, string msg, object data = null, string backurl = "")
+        #region 把ajax返回值封装成json格式返回
+        public ActionResult PackagingAjaxMsg(AjaxStatu statu, string msg, object data = null, string backurl = "")
         {
             AjaxMsgModel am = new AjaxMsgModel()
             {

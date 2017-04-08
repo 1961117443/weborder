@@ -220,8 +220,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\userjs\login.js" />
-    <Content Include="Scripts\userjs\processingajaxmsg.js" />
+    <Content Include="Userjs\login.js" />
+    <Content Include="Userjs\processingajaxmsg.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -278,6 +278,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{26ad298c-5c43-41f1-8fdc-2d0365e0a84a}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DI\DI.csproj">
       <Project>{0c61343b-bccf-4809-a902-2c765a8b0ba4}</Project>
       <Name>DI</Name>
