@@ -1,3 +1,5 @@
 ﻿$(function () {
-    
+    $('#menuTree').tree({
+
+    });
 })
