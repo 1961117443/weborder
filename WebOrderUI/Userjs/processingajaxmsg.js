@@ -15,7 +15,13 @@
                     funcSuc();
                 }
             }
-        }, 
+         },
+         showMsg:function (m,t) {
+             if($.messager)
+             {
+                 $.messager.show({ title: t, msg: m, timeout: 5000, showType: 'slide' });
+             }
+         },
         procAjaxMsg: function (data,funcSuc,funcErr) {
             if (!data.Statu) {
                 return;

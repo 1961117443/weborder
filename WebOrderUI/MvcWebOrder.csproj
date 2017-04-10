@@ -194,6 +194,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\index.css" />
     <Content Include="Css\login.css" />
     <Content Include="EasyUI\changelog.txt" />
     <Content Include="EasyUI\easyloader.js" />
@@ -220,6 +221,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Userjs\index.js" />
     <Content Include="Userjs\login.js" />
     <Content Include="Userjs\processingajaxmsg.js" />
     <Content Include="Scripts\_references.js" />
@@ -268,6 +270,7 @@
     <Folder Include="EasyUI\plugins\" />
     <Folder Include="EasyUI\src\" />
     <Folder Include="EasyUI\themes\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

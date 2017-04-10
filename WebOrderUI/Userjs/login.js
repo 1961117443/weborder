@@ -60,7 +60,8 @@
             window.location = jsonData.BackUrl;
             console.info(jsonData);
         }, function () {
-           $.alertMsg(jsonData.Msg,"提示",null);
+             $.alertMsg(jsonData.Msg,"提示",null);
+           // $.showMsg(jsonData.Msg, "提示");
         });
     };
     

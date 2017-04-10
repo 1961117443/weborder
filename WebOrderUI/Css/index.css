@@ -1,0 +1,16 @@
+﻿#divRepeat {
+    background-image:url(../../Images/repeat.jpg);
+    background-repeat:repeat-x;
+    width:100px;
+    height:79px;
+    overflow:hidden;
+}
+
+#banner {
+    background-image:url(../../Images/banner.jpg);
+    background-repeat:no-repeat;
+    width:681px;
+    height:79px;
+    float:right;
+    overflow:hidden;
+}
