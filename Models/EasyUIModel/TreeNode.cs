@@ -18,6 +18,7 @@ namespace Models
         public int id { get; set; }
         public string text { get; set; }
         public string state { get; set; }
+        public bool Checked { get; set; }
         public object attributes { get; set; }
         public List<TreeNode> children { get; set; }
     }

@@ -14,6 +14,9 @@ public partial class CustomerDAL:BaseDAL<Customer>,ICustomerDAL
 public partial class SectionbarDAL:BaseDAL<Sectionbar>,ISectionbarDAL
 {
 }
+public partial class SysModuleDAL:BaseDAL<SysModule>,ISysModuleDAL
+{
+}
 public partial class UserInfoDAL:BaseDAL<UserInfo>,IUserInfoDAL
 {
 }

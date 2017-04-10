@@ -22,12 +22,18 @@ public partial class SectionbarBLL:BaseBLL<Sectionbar>,ISectionbarBLL
 		iDAL= DBSession.ISectionbarDAL;
     }
 }
+public partial class SysModuleBLL:BaseBLL<SysModule>,ISysModuleBLL
+{
+	public override void SetDAL()
+    {
+		iDAL= DBSession.ISysModuleDAL;
+    }
+}
 public partial class UserInfoBLL:BaseBLL<UserInfo>,IUserInfoBLL
 {
 	public override void SetDAL()
     {
 		iDAL= DBSession.IUserInfoDAL;
     }
-        
 }
 }

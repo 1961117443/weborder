@@ -28,5 +28,6 @@ namespace Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Sectionbar> Sectionbars { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
+        public virtual DbSet<SysModule> SysModules { get; set; }
     }
 }

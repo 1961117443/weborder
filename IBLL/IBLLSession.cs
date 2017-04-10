@@ -12,6 +12,7 @@ public partial interface IBLLSession
 {
 	ICustomerBLL ICustomerBLL{get;set;}
 	ISectionbarBLL ISectionbarBLL{get;set;}
+	ISysModuleBLL ISysModuleBLL{get;set;}
 	IUserInfoBLL IUserInfoBLL{get;set;}
 }
 }

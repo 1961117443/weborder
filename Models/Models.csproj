@@ -74,6 +74,9 @@
     <Compile Include="Sectionbar.cs">
       <DependentUpon>DBWebOrder.tt</DependentUpon>
     </Compile>
+    <Compile Include="SysModule.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserInfo.cs">
       <DependentUpon>DBWebOrder.tt</DependentUpon>
     </Compile>

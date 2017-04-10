@@ -50,7 +50,26 @@ public partial class DBSession:IDBSession
    }
    #endregion
 	
-   #region 03 数据接口 IUserInfoDAL
+   #region 03 数据接口 ISysModuleDAL
+   ISysModuleDAL _SysModuleDAL;
+   public ISysModuleDAL ISysModuleDAL
+   {
+		get
+		{
+			if(_SysModuleDAL==null)
+			{
+				_SysModuleDAL = new SysModuleDAL();
+			}
+			return _SysModuleDAL;
+		}
+		set
+		{
+			_SysModuleDAL = value;
+		}
+   }
+   #endregion
+	
+   #region 04 数据接口 IUserInfoDAL
    IUserInfoDAL _UserInfoDAL;
    public IUserInfoDAL IUserInfoDAL
    {

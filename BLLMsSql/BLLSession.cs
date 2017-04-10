@@ -50,7 +50,26 @@ public partial class BLLSession:IBLLSession
    }
    #endregion
 	
-   #region 03 数据接口 IUserInfoBLL
+   #region 03 数据接口 ISysModuleBLL
+   ISysModuleBLL _SysModuleBLL;
+   public ISysModuleBLL ISysModuleBLL
+   {
+		get
+		{
+			if(_SysModuleBLL==null)
+			{
+				_SysModuleBLL = new SysModuleBLL();
+			}
+			return _SysModuleBLL;
+		}
+		set
+		{
+			_SysModuleBLL = value;
+		}
+   }
+   #endregion
+	
+   #region 04 数据接口 IUserInfoBLL
    IUserInfoBLL _UserInfoBLL;
    public IUserInfoBLL IUserInfoBLL
    {
