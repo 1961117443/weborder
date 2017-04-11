@@ -69,6 +69,7 @@
       <DependentUpon>DBWebOrder.edmx</DependentUpon>
     </Compile>
     <Compile Include="EasyUIModel\TreeNode.cs" />
+    <Compile Include="ExtensionModel\SysModule.cs" />
     <Compile Include="FormatModel\AjaxMsgModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sectionbar.cs">
@@ -110,7 +111,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ExtensionModel\" />
     <Folder Include="PcocModel\" />
   </ItemGroup>
   <ItemGroup>

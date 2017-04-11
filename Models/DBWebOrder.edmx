@@ -28,10 +28,12 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ParentID" Type="int" Nullable="false" />
+          <Property Name="AreaName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ControlName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ActionName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="IConName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -40,6 +42,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime" />
         </EntityType>
         <EntityContainer Name="WebOrderModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -74,6 +77,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityContainer Name="WebOrderEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
@@ -92,6 +96,8 @@
           <Property Name="ActionName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="IConName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="AreaName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -120,6 +126,7 @@
           <EntitySetMapping Name="UserInfoes">
             <EntityTypeMapping TypeName="WebOrderModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PassWord" ColumnName="PassWord" />
@@ -129,6 +136,8 @@
           <EntitySetMapping Name="SysModules">
             <EntityTypeMapping TypeName="WebOrderModel.SysModule">
               <MappingFragment StoreEntitySet="SysModule">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="IConName" ColumnName="IConName" />
                 <ScalarProperty Name="ActionName" ColumnName="ActionName" />

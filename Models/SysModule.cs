@@ -21,5 +21,7 @@ namespace Models
         public string ActionName { get; set; }
         public string IConName { get; set; }
         public int OrderID { get; set; }
+        public string AreaName { get; set; }
+        public bool State { get; set; }
     }
 }

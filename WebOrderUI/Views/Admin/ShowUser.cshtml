@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/EasyUI/themes/icon.css" rel="stylesheet" />
+    <link href="~/EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Css/login.css" rel="stylesheet" />
+    <script src="~/EasyUI/jquery.min.js"></script>
+    <script src="~/EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/EasyUI/locale/easyui-lang-zh_CN.js"></script> 
+    <script src="~/Userjs/processingajaxmsg.js"></script> 
+    <script src="~/Userjs/showuser.js"></script>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'north',title:'过滤条件',split:true,border:false,collapsed:true" style="height:100px;">
+        <form id="searchForm"> </form>
+    </div> 
+    <div data-options="region:'center',border:false" style="overflow:hidden">
+        <table id="datagrid"></table>
+    </div>   
+</body>
+</html>

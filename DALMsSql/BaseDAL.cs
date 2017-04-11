@@ -46,7 +46,24 @@ namespace DALMsSql
 
         public List<T> GetList<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
         {
-            return db.Set<T>().Where(whereLambda).OrderBy(orderLambda).ToList();
+            if (whereLambda!=null && orderLambda!=null)
+            {
+               return db.Set<T>().Where(whereLambda).OrderBy(orderLambda).ToList();
+            }
+            else if (whereLambda==null)
+            {
+                return db.Set<T>().OrderBy(orderLambda).ToList();
+            }
+            else if (orderLambda==null)
+            {
+                return db.Set<T>().OrderBy(orderLambda).ToList();
+            }
+            else
+            {
+                return db.Set<T>().ToList();
+            }
+           
+           
         }
 
         public List<T> GetPageList<TKey>(int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
@@ -100,7 +117,7 @@ namespace DALMsSql
         public int Modify(T entity, params string[] proNames)
         {
             DbEntityEntry entry = db.Entry<T>(entity);
-            entry.State = EntityState.Unchanged;
+            entry.State = EntityState.Modified;
             foreach (string prop in proNames)
             {
                 entry.Property(prop).IsModified = true;
