@@ -68,6 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBWebOrder.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EasyUIModel\DataGrid.cs" />
     <Compile Include="EasyUIModel\TreeNode.cs" />
     <Compile Include="ExtensionModel\SysModule.cs" />
     <Compile Include="FormatModel\AjaxMsgModel.cs" />

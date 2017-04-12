@@ -76,7 +76,36 @@ namespace MvcWebOrder.Controllers
         public ActionResult ShowUser()
         {
             return View();
-        } 
+        }
+        public ActionResult ShowUsers()
+        {
+            int page = 0;
+            int rows = 0;
+            int totalCount=0;
+            if (Request["page"] != null)
+            {
+                int.TryParse(Request["page"].ToString(), out page);
+            }
+            if (Request["rows"] != null)
+            {
+                int.TryParse(Request["rows"].ToString(), out rows);
+            } 
+            OperContext oc = OperContext.CurrentOperContext;
+            var users = oc.BLLSession.IUserInfoBLL.GetPageList(page,rows,ref totalCount,null,u=>u.ID,true); 
+            DataGrid dg = new DataGrid()
+            {
+                total = totalCount,
+                rows = users,
+                footer = null
+            }; 
+            return Json(dg, JsonRequestBehavior.AllowGet);
+        }
+
+        
         #endregion
+
+
     }
+
+    
 }

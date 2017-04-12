@@ -46,24 +46,16 @@ namespace DALMsSql
 
         public List<T> GetList<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
         {
-            if (whereLambda!=null && orderLambda!=null)
+            IQueryable<T> list = db.Set<T>();
+            if (whereLambda!=null)
             {
-               return db.Set<T>().Where(whereLambda).OrderBy(orderLambda).ToList();
+                list = list.Where(whereLambda);
             }
-            else if (whereLambda==null)
+            if (orderLambda!=null)
             {
-                return db.Set<T>().OrderBy(orderLambda).ToList();
+                list = list.OrderBy(orderLambda);
             }
-            else if (orderLambda==null)
-            {
-                return db.Set<T>().OrderBy(orderLambda).ToList();
-            }
-            else
-            {
-                return db.Set<T>().ToList();
-            }
-           
-           
+            return list.ToList(); 
         }
 
         public List<T> GetPageList<TKey>(int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)
@@ -75,14 +67,18 @@ namespace DALMsSql
         public List<T> GetPageList<TKey>(int pageIndex, int pageSize, ref int totalCount, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda, bool isAsc)
         {
             int skipCount = (pageIndex - 1) * pageSize;
-            IQueryable<T> list = null;
+            IQueryable<T> list = db.Set<T>();
+            if (whereLambda != null)
+            {
+                list = list.Where(whereLambda);
+            }
             if (isAsc)
             {
-                list = db.Set<T>().Where(whereLambda).OrderBy(orderLambda);
+                list = db.Set<T>().OrderBy(orderLambda);
             }
             else
             {
-                list = db.Set<T>().Where(whereLambda).OrderByDescending(orderLambda);
+                list = db.Set<T>().OrderByDescending(orderLambda);
             }
             totalCount = list.Count();
             return list.Skip(skipCount).Take(pageSize).ToList();
