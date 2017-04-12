@@ -12,7 +12,7 @@
         columns: [[
             { field: 'ID', checkbox: true },
             { field: 'UserName', title: '用户名', width: 80 },
-            { field: 'LoginTime', title: '最后登录时间', width: 140, align:center, formatter:formatDatebox,editor:'datebox'   },
+            { field: 'LoginTime', title: '最后登录时间', width: 140, align:center, formatter:formatDatebox,editor:'datebox'   }
         ]
         ],
      });
