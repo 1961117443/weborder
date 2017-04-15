@@ -67,6 +67,7 @@ namespace DALMsSql
         public List<T> GetPageList<TKey>(int pageIndex, int pageSize, ref int totalCount, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda, bool isAsc)
         {
             int skipCount = (pageIndex - 1) * pageSize;
+            //IQueryable<T> list = null;
             IQueryable<T> list = db.Set<T>();
             if (whereLambda != null)
             {
@@ -74,11 +75,12 @@ namespace DALMsSql
             }
             if (isAsc)
             {
-                list = db.Set<T>().OrderBy(orderLambda);
+                 list = list.OrderBy(orderLambda);
+               // list = list.Where(whereLambda).OrderBy(orderLambda);
             }
             else
             {
-                list = db.Set<T>().OrderByDescending(orderLambda);
+                list = list.OrderByDescending(orderLambda);
             }
             totalCount = list.Count();
             return list.Skip(skipCount).Take(pageSize).ToList();

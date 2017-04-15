@@ -3,11 +3,18 @@ using Models;
 using Common;
 using System.Collections.Generic;
 using System;
+using System.Linq.Expressions;
+using LinqKit;
 
 namespace MvcWebOrder.Controllers
 {
     public class AdminController : Controller
     {
+        /// <summary>
+        /// 数据操作上下文
+        /// </summary>
+        OperContext oc = OperContext.CurrentOperContext;
+
         // GET: Admin 
         #region 首页
         public ActionResult Index()
@@ -43,9 +50,7 @@ namespace MvcWebOrder.Controllers
 
             string userName = Request["name"];
             string passWord = Request["pwd"];
-
-            OperContext oc = OperContext.CurrentOperContext;
-
+             
             var users = oc.BLLSession.IUserInfoBLL.GetList(u => u.UserName.Equals(userName));
             if (users == null || users.Count == 0)
             {
@@ -82,6 +87,7 @@ namespace MvcWebOrder.Controllers
             int page = 0;
             int rows = 0;
             int totalCount=0;
+            string userName = string.Empty,ldate = string.Empty, edate = string.Empty;
             if (Request["page"] != null)
             {
                 int.TryParse(Request["page"].ToString(), out page);
@@ -89,9 +95,41 @@ namespace MvcWebOrder.Controllers
             if (Request["rows"] != null)
             {
                 int.TryParse(Request["rows"].ToString(), out rows);
-            } 
-            OperContext oc = OperContext.CurrentOperContext;
-            var users = oc.BLLSession.IUserInfoBLL.GetPageList(page,rows,ref totalCount,null,u=>u.ID,true); 
+            }
+            
+            if (Request["userName"]!=null)
+            {
+                userName = Request["userName"];
+            }
+            if (Request["ldate"]!=null)
+            {
+                ldate = Request["ldate"]  ;
+            }
+            if (Request["edate"] != null)
+            {
+                edate = Request["edate"] ;
+            }
+            /*
+            Func<UserInfo,bool> whereFunc = user =>
+            { 
+                bool result = true;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    result = result && user.UserName.IndexOf(userName) > 0;
+                }
+                if (string.IsNullOrEmpty(ldate))
+                {
+                    result = result && user.LoginTime != null && string.Compare(user.LoginTime.ToString(), ldate, StringComparison.Ordinal) >= 0;
+                }
+                if (string.IsNullOrEmpty(edate))
+                {
+                    result = result && user.LoginTime != null && string.Compare(user.LoginTime.ToString(), edate, StringComparison.Ordinal) <= 0;
+                }
+                return result;
+
+            };*/
+            
+            var users = oc.BLLSession.IUserInfoBLL.GetPageList(page,rows,ref totalCount, u=> userName==string.Empty || u.UserName==userName, u=>u.ID,true); 
             DataGrid dg = new DataGrid()
             {
                 total = totalCount,

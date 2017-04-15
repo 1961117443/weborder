@@ -9,9 +9,9 @@
     else {
         dt = new Date(value);
         if (isNaN(dt)) {
-            console.info(dt);
+           // console.info(dt);
             value = value.replace(/\/Date\((-?\d+)\)\//, '$1');
-            console.info(value);
+           // console.info(value);
             dt = new Date();
             dt.setTime(value);
         }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DI
 {
-    public class SpringHelper
+    public  class SpringHelper
     {
 
         #region Spring.NET 容器上下文
@@ -24,7 +24,9 @@ namespace DI
         {
             T obj = (T)SpringContext.GetObject(objName);
             return obj;
-        } 
+        }
         #endregion
+
+      
     }
 }

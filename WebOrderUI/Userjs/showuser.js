@@ -1,4 +1,5 @@
 ﻿$(function () {
+    
     var datagrid;
     datagrid = $('#datagrid').datagrid({
         fitColumns:true,
@@ -8,8 +9,8 @@
         fit:true,
         pagination: true,
         pagePosition: "bottom",
-        pageSize: 1, 
-        pageList:[1,2,3,4,5],
+        checkOnSelect: false,
+        selectOnCheck:false,
         columns: [[
             { field: 'ID', checkbox: true },
             { field: 'UserName', title: '用户名', width: 80 },
@@ -28,13 +29,27 @@
         });
         return o;
     };
+
+    $('#btnQuery').linkbutton({
+        iconCls: 'icon-search',
+        onClick: _search,
+    });
+
+    $('#btnCancel').linkbutton({
+        iconCls: 'icon-undo',
+        onClick: clearSearch,
+    });
+
     function _search() {
         datagrid.datagrid('load', serializeObject($('#searchForm')));
-    }
+    };
 
-     function clearSearch() {
-         datagrid.datagrid('load', {});
-         $('#searchForm input').val('');
-     }
+    function clearSearch() {
+        console.info("1");
+        $('#datagrid').datagrid('load', {});
+        $('#searchForm input').val("");
+    };
 
+    
+     
 })
