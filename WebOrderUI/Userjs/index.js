@@ -30,10 +30,9 @@
             if (ct.panel('options').title == node.text) {
                 $tab.tabs('update', {
                     tab: ct,
-                    href: node.attributes.url,
-                    //options:{
-                    //    content:newFrame(node.attributes.url),
-                    //}
+                    options:{
+                        content:newFrame(node.attributes.url),
+                    }
                 }); 
             }
             $tab.tabs('select', node.text);
