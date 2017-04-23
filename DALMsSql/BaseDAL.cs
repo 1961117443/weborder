@@ -17,7 +17,15 @@ namespace DALMsSql
         /// EF上下文
         /// </summary>
         DbContext db = new DBContextFactory().GetDBContext();
-           
+
+        public IQueryable<T> Entities
+        {
+            get
+            {
+               return  db.Set<T>();
+            }
+        }
+
         public int Add(T entity)
         {
             db.Set<T>().Add(entity);

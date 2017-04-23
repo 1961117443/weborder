@@ -28,6 +28,15 @@ namespace BLLMsSql
                 return _DBSession;
             }
         }
+
+        public IQueryable<T> Entities
+        {
+            get
+            {
+               return  iDAL.Entities;
+            }
+        }
+
         public BaseBLL()
         {
             SetDAL();

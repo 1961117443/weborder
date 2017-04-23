@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionsExtensions.cs" />
     <Compile Include="DataHelper.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Log\Log4Net\Appender\AdoNetAppender.cs" />
@@ -271,9 +272,14 @@
     <Compile Include="Log\Log4Net\Util\TypeConverters\TypeConverterAttribute.cs" />
     <Compile Include="Log\Log4Net\Util\WindowsSecurityContext.cs" />
     <Compile Include="Log\LogHelper.cs" />
+    <Compile Include="ObjectExtendsions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertySortCondition.cs" />
+    <Compile Include="PublicHelper.cs" />
+    <Compile Include="QueryableHelper.cs" />
     <Compile Include="SecurityHelper.cs" />
     <Compile Include="StringHelper.cs" />
+    <Compile Include="TypeExtendsions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

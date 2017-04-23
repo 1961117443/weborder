@@ -8,7 +8,7 @@ namespace IDAL
 {
     public interface IBaseDAL<T> where T:class,new()
     {
-
+        IQueryable<T> Entities { get; }
         int Add(T entity);
         int Del(T entity);
         int Del(Expression<Func<T, bool>> delWhere);

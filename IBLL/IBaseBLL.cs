@@ -8,6 +8,7 @@ namespace IBLL
 {
     public interface IBaseBLL<T> where T:class,new()
     {
+        IQueryable<T> Entities { get; }
         int Add(T entity);
         int Del(T entity);
         int Del(Expression<Func<T, bool>> delWhere);
