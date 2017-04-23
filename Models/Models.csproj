@@ -73,11 +73,6 @@
     <Compile Include="EasyUIModel\TreeNode.cs" />
     <Compile Include="ExtensionModel\SysModule.cs" />
     <Compile Include="FormatModel\AjaxMsgModel.cs" />
-    <Compile Include="PcocModel\EFPOCO.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFPOCO.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sectionbar.cs">
       <DependentUpon>DBWebOrder.tt</DependentUpon>
@@ -101,8 +96,6 @@
       <DependentUpon>DBWebOrder.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="PcocModel\EF.Reverse.POCO.Core.ttinclude" />
-    <None Include="PcocModel\EF.Reverse.POCO.ttinclude" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBWebOrder.Context.tt">
@@ -115,15 +108,13 @@
       <DependentUpon>DBWebOrder.edmx</DependentUpon>
       <LastGenOutput>DBWebOrder.cs</LastGenOutput>
     </Content>
-    <Content Include="PcocModel\EFPOCO.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EFPOCO.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PocoModel\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{26ad298c-5c43-41f1-8fdc-2d0365e0a84a}</Project>
