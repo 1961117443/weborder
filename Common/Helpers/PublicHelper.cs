@@ -24,17 +24,17 @@ namespace Common
                     Type type = arg.GetType();
                     if (type.IsValueType && type.IsNumeric())
                     {
-                        bool flag = !canZero ? arg.Cast(0.0) <= 0.0 : arg.Cast(0.0) < 0.0;
+                        bool flag = !canZero ? arg.CastTo(0.0) <= 0.0 : arg.CastTo(0.0) < 0.0;
                         if (flag)
                         {
-                            ArgumentOutOfRangeException e = new ArgumentOutOfRangeException(argName);
-                            throw new Exception(string.Format("参数{0}不在有效范围内，引发异常。具体信息请查看系统日志。", argName));
+                            ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException(argName);
+                            throw new Exception(string.Format("参数{0}不在有效范围内，引发异常。具体信息请查看系统日志。", argName),ex);
                         }
                     }
                     if (type==typeof(Guid) && (Guid)arg==Guid.Empty)
                     {
-                        ArgumentNullException e = new ArgumentNullException(argName);
-                        throw new Exception(string.Format("参数{0}为空引发异常。", argName), e);
+                        ArgumentNullException ex = new ArgumentNullException(argName);
+                        throw new Exception(string.Format("参数{0}为空引发异常。", argName), ex);
                     }
                 }
             }

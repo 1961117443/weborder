@@ -15,7 +15,7 @@ namespace Common
         /// <param name="value">要转化的原对象</param>
         /// <param name="defalutValue">转化失败时返回的默认值</param>
         /// <returns>转化后的值</returns>
-        public static T Cast<T>(this object value, T defalutValue)
+        public static T CastTo<T>(this object value, T defalutValue)
         {
             object result;
             Type type = typeof(T);
@@ -35,7 +35,7 @@ namespace Common
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T Cast<T>(this object value)
+        public static T CastTo<T>(this object value)
         {
             object result;
             Type type = typeof(T);

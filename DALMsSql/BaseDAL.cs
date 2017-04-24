@@ -8,6 +8,7 @@ using System.Data.Entity;
 using Models;
 using System.Data.Entity.Infrastructure;
 using System.Reflection;
+using Common.Log;
 
 namespace DALMsSql
 {
@@ -17,6 +18,7 @@ namespace DALMsSql
         /// EF上下文
         /// </summary>
         DbContext db = new DBContextFactory().GetDBContext();
+        ILog log = new Log(typeof(T));
 
         public IQueryable<T> Entities
         {
@@ -90,7 +92,7 @@ namespace DALMsSql
             {
                 list = list.OrderByDescending(orderLambda);
             }
-            totalCount = list.Count();
+            totalCount = list.Count(); 
             return list.Skip(skipCount).Take(pageSize).ToList();
         }
 

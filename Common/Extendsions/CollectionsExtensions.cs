@@ -36,7 +36,7 @@ namespace Common
             {
                 return null;
             }
-            string result = source.Cast<object>().Aggregate<object, string>(null, (current, o) => current + string.Format("{0}{1}", o, separator));
+            var result = source.Cast<object>().Aggregate<object, string>(null, (current, o) => current + string.Format("{0}{1}", o, separator));
             return result.Substring(0, result.Length - separator.Length);
         }
 
