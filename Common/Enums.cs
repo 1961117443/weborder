@@ -18,4 +18,19 @@ namespace Common
         Ascending =0,
         Descending=1
     }
+
+    public enum ErrorHandle
+    {
+        Throw,
+        Continue
+    }
+
+    public enum DBAction
+    {
+        None =0,
+        Add,
+        Modify,
+        Delete,
+        Query
+    }
 }

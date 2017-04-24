@@ -9,16 +9,16 @@ using Models;
 using System.Data.Entity.Infrastructure;
 using System.Reflection;
 using Common.Log;
+using Common;
 
 namespace DALMsSql
 {
-    public class BaseDAL<T> : IBaseDAL<T> where T : class, new()
+    public class BaseDAL<T> :BaseLog<T>, IBaseDAL<T> where T : class, new()
     {
         /// <summary>
         /// EF上下文
         /// </summary>
-        DbContext db = new DBContextFactory().GetDBContext();
-        ILog log = new Log(typeof(T));
+        DbContext db = new DBContextFactory().GetDBContext(); 
 
         public IQueryable<T> Entities
         {
@@ -30,8 +30,12 @@ namespace DALMsSql
 
         public int Add(T entity)
         {
-            db.Set<T>().Add(entity);
-            return db.SaveChanges();
+            int iret = -1;
+            Logger(DBAction.Add, () => {
+                db.Set<T>().Add(entity);
+                iret = db.SaveChanges();
+            });
+            return iret;
         }
 
         public int Del(Expression<Func<T, bool>> delWhere)
@@ -48,10 +52,17 @@ namespace DALMsSql
 
         public int Del(T entity)
         {
-            var dbs = db.Set<T>();
-            dbs.Attach(entity);
-            dbs.Remove(entity);
-            return db.SaveChanges();            
+            int iret = -1;
+            Logger(DBAction.Delete,
+                () =>
+                {
+                    var dbs = db.Set<T>();
+                    dbs.Attach(entity);
+                    dbs.Remove(entity);
+                    iret=db.SaveChanges();
+                }
+            );
+            return iret;
         }
 
         public List<T> GetList<TKey>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderLambda)

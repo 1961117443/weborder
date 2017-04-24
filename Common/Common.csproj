@@ -48,6 +48,7 @@
     <Compile Include="Extendsions\CollectionsExtensions.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Log\BaseLog.cs" />
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\Log.cs" />
     <Compile Include="Log\Log4Net\Appender\AdoNetAppender.cs" />
