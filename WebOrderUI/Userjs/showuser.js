@@ -1,9 +1,8 @@
-﻿$(function () {
-    
+﻿$(function () { 
     var datagrid;
     datagrid = $('#datagrid').datagrid({
         fitColumns:true,
-        url: "/Admin/ShowUsers",
+        url: "/User/UserIndex/ShowUsers",
         title: "用户列表",
         iconCls: "icon-save",
         fit:true,

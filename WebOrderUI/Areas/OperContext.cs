@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using Models;
 using Common;
 
-namespace MvcWebOrder.Controllers
+namespace MvcWebOrder.Areas
 {
     public class OperContext
     {

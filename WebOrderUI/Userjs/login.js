@@ -19,7 +19,7 @@
                         //服务器提交 
                         $.ajax({
                             type: 'POST',
-                            url: '/Admin/LoginIn',
+                            url: '/AdminLogin/LoginIn',
                             data: {
                                 name: $('#userName').val(),
                                 pwd: $('#passWord').val()

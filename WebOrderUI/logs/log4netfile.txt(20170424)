@@ -1,0 +1,7 @@
+记录时间：2017-04-24 13:35:37,566 线程ID:[6904] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-24 14:03:14,788 线程ID:[19572] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-24 14:05:33,131 线程ID:[20640] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-24 14:06:30,403 线程ID:[5228] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-24 14:06:51,007 线程ID:[5228] 日志级别：DEBUG 出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-24 14:08:41,621 线程ID:[21096] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-24 18:38:30,975 线程ID:[20568] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！

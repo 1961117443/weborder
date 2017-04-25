@@ -1,6 +1,6 @@
 ﻿$(function () {
     $('#menuTree').tree({
-        url: "/Admin/GetModules",
+        url: "/User/UserIndex/GetModules",
         lines: true,
         animate: true,
         onDblClick: function (node) {
