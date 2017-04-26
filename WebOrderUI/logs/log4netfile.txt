@@ -1,6 +1,10 @@
-记录时间：2017-04-25 14:46:39,012 线程ID:[21712] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
-记录时间：2017-04-25 14:46:44,320 线程ID:[15888] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
-记录时间：2017-04-25 14:46:45,029 线程ID:[21712] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
-记录时间：2017-04-25 14:46:45,687 线程ID:[13860] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
-记录时间：2017-04-25 14:46:51,176 线程ID:[15888] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
-记录时间：2017-04-25 14:46:54,155 线程ID:[21712] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 20:41:56,377 线程ID:[17440] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 20:51:45,128 线程ID:[9604] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 20:54:26,999 线程ID:[9604] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 20:54:40,757 线程ID:[22188] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 20:54:59,417 线程ID:[20260] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 21:16:08,596 线程ID:[11316] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 21:16:12,846 线程ID:[18968] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 21:16:13,673 线程ID:[15468] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 21:16:14,633 线程ID:[18968] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
+记录时间：2017-04-26 21:16:15,424 线程ID:[15468] 日志级别：INFO  出错类：Models.UserInfo property:[(null)] - 错误描述：查询数据！
