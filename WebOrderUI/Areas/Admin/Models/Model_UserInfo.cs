@@ -39,7 +39,7 @@ namespace MvcWebOrder.Areas
                         break;
                     }
                 }
-                return b ? new AjaxMsgModel(AjaxStatu.ok, AppMsg.LoginSuccess, "/User/UserIndex") : new AjaxMsgModel(AjaxStatu.err, AppMsg.LoginFail+"密码错误！");
+                return b ? new AjaxMsgModel(AjaxStatu.ok, AppMsg.LoginSuccess, "/User/UserIndex/Index") : new AjaxMsgModel(AjaxStatu.err, AppMsg.LoginFail+"密码错误！");
             }
 
             return  new AjaxMsgModel(AjaxStatu.err, AppMsg.LoginFail + "用户不存在！");
