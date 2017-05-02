@@ -1,10 +1,23 @@
-﻿#login {
-    padding:6px 0 6px 0;
+﻿#loginInputForm {
+    padding:6px 0 6px 30px;
 }
 p{
     height:22px;
     line-height:22px;
     padding:4px 0 0 25px;
+}
+ 
+
+img{
+    height:22px;
+    line-height:22px;
+    padding:5px 0px 0px 0px;
+}
+
+a {
+    height:22px;
+    line-height:22px;
+    padding:0px 0px 0px 0px;
 }
 
 .textbox{

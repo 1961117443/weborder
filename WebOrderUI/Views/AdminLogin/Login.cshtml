@@ -24,20 +24,50 @@
     <title>后台登录</title>
 </head>
 <body>
-    <div id="login">
-        <div id="loginForm">
-            <p>用户帐号：<input type="text" id="userName" /></p>
-            <p>用户密码：<input type="password" id="passWord" /></p>
+    
+    <div id="loginDialog" >
+        <div id="loginTabs">
+            <div id="customLogin" title="普通用户"> 
+                <div>
+                    <form id="loginInputForm" method="post">
+                        <table>
+                            <tr>
+                                <th>登录名:</th>
+                                <th><input class="loginName" id="userName" type="text" /></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>密&nbsp;&nbsp;码:</th>
+                                <th><input class="loginPwd" id="passWord" type="passWord" /></th>
+                                <th></th>
+                            </tr>
+                             @*<tr>
+                                <th>验证方式:</th>
+                                <th><input class="loginType" id="validateType" type="" /></th>
+                                <th></th>
+                            </tr>*@
+                                
+                            <tr>
+                                <th>验证码:</th>
+                                <th><input class="validateCode" id="code" type="text" /></th>
+                                <th>
+                                    <img id="imgCode" src="/AdminLogin/GetValidateCode?id=1" onclick="RefershValidateCode()" />
+                                    <a href="javascript:void(0);" onclick="RefershValidateCode()">看不清</a>
+                                </th>
+                            </tr>
+                           
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div id="erpLogin" title="ERP用户"></div> 
+            <!--<div id="login">
+                <div id="loginForm">
+                    <p>用户帐号：<input type="text" id="userName" /></p>
+                    <p>用户密码：<input type="password" id="passWord" /></p>
+                </div>
+            </div>-->
         </div>
     </div>
-    <!--
-    <div id="signup">
-        <a href="#" class="easyui-linkbutton">注册</a>
-    </div>
-
-    <div id="btn">
-        <a href="#" class="easyui-linkbutton">登录</a>
-    </div>
-        -->
 </body>
 </html>

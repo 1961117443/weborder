@@ -32,7 +32,8 @@ namespace MvcWebOrder.Controllers
 
             string userName = Request["name"];
             string passWord = Request["pwd"];
-
+            string code = string.Empty;
+            /*
             var users = oc.BLLSession.IUserInfoBLL.GetList(u => u.UserName.Equals(userName));
             if (users == null || users.Count == 0)
             {
@@ -56,7 +57,14 @@ namespace MvcWebOrder.Controllers
                     return oc.PackagingAjaxMsg(AjaxStatu.err, "密码错误");
                 }
             }
+            */
+            return new JsonResult() { Data = Model_UserInfo.LoginIn(userName, passWord, oc.CurrentUserValidateCode) };
         }
         #endregion
+
+        public ActionResult GetValidateCode()
+        {
+            return File(Model_UserInfo.GenerateValidateCode(), @"image/jpeg");
+        }
     }
 }

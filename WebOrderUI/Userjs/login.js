@@ -1,4 +1,54 @@
 ﻿$(function () {
+    $("#loginDialog").dialog({
+        title: "用户登录",
+        width: 350,
+        height: 210,
+        modal: true,
+        closable: false,
+        buttons: [
+            {
+                text: "注册",
+                handler: function () {
+
+                }
+            }, {
+                text: "登录",
+                handler: function () {
+
+                }
+            }]
+    });
+
+    $("#validateType").combobox({
+        valueField: 'id',
+        textField: 'text',
+        data: [
+            {
+            id: 1,
+            text: "普通用户"
+        }, {
+            id: 2,
+            text: "ERP用户"
+        }]
+    });
+
+    $("#loginTabs").tabs({
+        fit: true,
+        border: false,
+        narrow: true,
+    });
+
+    
+});
+
+//刷新验证码
+function RefershValidateCode() {
+    var url = $("#imgCode").attr("src");
+    $("#imgCode").attr("src", url + 1);
+};
+
+/*
+ 
     var login;
     login=$('#login').dialog({
         title: '用户登录',
@@ -54,6 +104,7 @@
     });
 
     /*ajax成功后调用的方法 */
+    /*
     function ok(jsonData) {
         $.procAjaxMsg(jsonData, function () {
             //login.dialog("close");
@@ -64,5 +115,4 @@
            // $.showMsg(jsonData.Msg, "提示");
         });
     };
-    
-})
+    */

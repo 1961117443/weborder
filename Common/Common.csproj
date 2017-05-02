@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll</HintPath>
     </Reference>
@@ -45,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppMsg.cs" />
     <Compile Include="Extendsions\CollectionsExtensions.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Enums.cs" />
@@ -284,6 +286,7 @@
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Extendsions\TypeExtendsions.cs" />
+    <Compile Include="ValidateCode.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

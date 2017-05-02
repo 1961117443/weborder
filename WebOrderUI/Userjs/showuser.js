@@ -1,4 +1,6 @@
-﻿$(function () { 
+﻿ 
+
+ $(function () { 
     var datagrid;
     datagrid = $('#datagrid').datagrid({
         fitColumns:true,
@@ -51,4 +53,4 @@
 
     
      
-})
+}) 

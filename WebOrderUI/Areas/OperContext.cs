@@ -8,29 +8,14 @@ using System.Runtime.Remoting.Messaging;
 using System.Web.Mvc;
 using Models;
 using Common;
+using System.Web.SessionState;
 
 namespace MvcWebOrder.Areas
 {
     public class OperContext
     {
-        #region OldCode
-        /*
-        private IBLLSession _BLLSession;
-        public IBLLSession BLLSession
-        {
-            get
-            {
-                if (_BLLSession==null)
-                {
-                    IBLLSessionFactory bllSessionFactory = SpringHelper.GetObject<IBLLSessionFactory>("BLLSessionFactory");
-                    _BLLSession = bllSessionFactory.GetBLLSession();
-                }
-                return _BLLSession;
-            }
-        }
-        */
-        #endregion
 
+       
         #region 使用线程优化业务层仓储
         public IBLLSession BLLSession;
 
@@ -69,6 +54,63 @@ namespace MvcWebOrder.Areas
             return ajaxResult;
         } 
         #endregion
+
+
+        HttpContext ContextHttp
+        {
+            get
+            {
+                return HttpContext.Current;
+            }
+        }
+
+        public HttpResponse Response
+        {
+            get
+            {
+                return ContextHttp.Response;
+            }
+        }
+
+        public HttpRequest Request
+        {
+            get
+            {
+               return ContextHttp.Request;
+            }
+        }
+
+        public HttpSessionState Session
+        {
+            get
+            {
+                return ContextHttp.Session;
+            }
+        }
+
+        public string CurrentUserValidateCode
+        {
+            get
+            {
+                return (string)Session[AppMsg.Session_ValidateCode];
+            }
+            set
+            {
+                Session[AppMsg.Session_ValidateCode] = value;
+            }
+        }
+
+        public UserInfo CurrentUser
+        {
+            get
+            {
+                return Session[AppMsg.Session_CurrentUser] as UserInfo;
+            }
+            set
+            {
+                Session[AppMsg.Session_CurrentUser] = value;
+            }
+        }
 
     }
 }
