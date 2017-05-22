@@ -1,16 +1,5 @@
-﻿var loginDialog, loginTabs, loginForm;
-
-$(function () {
-    /*表单提交的参数对象*/
-    var formParam = {
-        url: '/AdminLogin/LoginIn',
-        success: dealWithLogin,
-    }
-
-    /*把表单参数对象和表单元素结合起来*/
-    loginForm = $('#loginInputForm').form(formParam);
-    /*登录窗体*/
-  loginDialog= $("#loginDialog").dialog({
+﻿$(function () {
+    $("#loginDialog").dialog({
         title: "用户登录",
         width: 350,
         height: 210,
@@ -25,10 +14,10 @@ $(function () {
             }, {
                 text: "登录",
                 handler: function () {
-                    loginForm.submit(); 
+
                 }
             }]
-  });
+    });
 
     $("#validateType").combobox({
         valueField: 'id',
@@ -56,22 +45,7 @@ $(function () {
 function RefershValidateCode() {
     var url = $("#imgCode").attr("src");
     $("#imgCode").attr("src", url + 1);
-}
-
-/*ajax提交成功以后调用的方法*/
-function dealWithLogin(jsonData) {
-    if (jsonData) {
-        //把json字符串转化为json对象
-        jsonData = $.parseJSON(jsonData);
-        $.procAjaxMsg(jsonData, function () {
-            loginDialog.dialog('closed');
-            window.location = jsonData.BackUrl;
-        }, function () {
-            $.alertMsg(jsonData.Msg, '登录失败', null);
-        })
-    }
-    
-}
+};
 
 /*
  

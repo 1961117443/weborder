@@ -19,8 +19,8 @@
     <script src="~/EasyUI/locale/easyui-lang-zh_CN.js"></script>  
     <!--自定义库-->
     <script src="~/Userjs/processingajaxmsg.js"></script>
-    <script src="~/Userjs/login.js"></script>
     <link href="~/Css/login.css" rel="stylesheet" />
+    <script src="~/Userjs/login.js"></script>
     <title>后台登录</title>
 </head>
 <body>
@@ -33,12 +33,12 @@
                         <table>
                             <tr>
                                 <th>登录名:</th>
-                                <th><input class="loginName" id="userName" name="lname" type="text" /></th>
+                                <th><input class="loginName" id="userName" type="text" /></th>
                                 <th></th>
                             </tr>
                             <tr>
                                 <th>密&nbsp;&nbsp;码:</th>
-                                <th><input class="loginPwd" id="passWord" name="lpwd" type="passWord" /></th>
+                                <th><input class="loginPwd" id="passWord" type="passWord" /></th>
                                 <th></th>
                             </tr>
                              @*<tr>
@@ -49,7 +49,7 @@
                                 
                             <tr>
                                 <th>验证码:</th>
-                                <th><input class="validateCode" id="code" name="lcode" type="text" /></th>
+                                <th><input class="validateCode" id="code" type="text" /></th>
                                 <th>
                                     <img id="imgCode" src="/AdminLogin/GetValidateCode?id=1" onclick="RefershValidateCode()" />
                                     <a href="javascript:void(0);" onclick="RefershValidateCode()">看不清</a>
