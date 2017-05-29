@@ -9,7 +9,9 @@ namespace Common
     {
         none =0,
         ok,
-        err
+        err,
+        nologin,
+        nopermission
     }
 
 
@@ -32,5 +34,12 @@ namespace Common
         Modify,
         Delete,
         Query
+    }
+
+    public enum RequestMethod
+    {
+        POST,
+        GET,
+        HEAD
     }
 }

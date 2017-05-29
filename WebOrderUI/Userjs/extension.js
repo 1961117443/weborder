@@ -18,6 +18,7 @@
     }
     return dt.format("yyyy-MM-dd hh:mm:ss");
 };
+
 $.extend(
     $.fn.datagrid.defaults.editors, {
         datebox: {
@@ -41,6 +42,7 @@ $.extend(
         }
     }
     );
+
 Date.prototype.format = function (format) {
     var o = {
         "M+": this.getMonth() + 1,

@@ -1,0 +1,50 @@
+﻿
+<style type="text/css">
+    #m_pwd{  
+        margin:10px auto;
+        border-collapse:collapse;
+    }
+
+    #m_pwd td,#m_pwd th{  
+        text-align:center;
+
+    }
+
+    .inputStyle{
+        border:1px solid #0094ff;
+    }
+
+    #m_pwd table{
+        margin:auto;
+    }
+</style>
+<div id="m_pwd">
+    <form method="post">
+        <table border="0" cellpadding="1" cellspacing="0">
+            <tr>
+                <td></td>
+                <td>登录名：</td>
+                <td><input name="loginName" class="easyui-textbox inputStyle" data-options="readonly:true" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>原密码：</td>
+                <td><input name="loginPwd" class="easyui-passwordbox inputStyle" data-options="required:true,missingMessage:'请输入原密码'" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>新密码：</td>
+                <td><input name="newPwd" class="easyui-passwordbox inputStyle"  data-options="required:true,missingMessage:'请输入新密码'"/></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>确&nbsp;&nbsp;&nbsp;认：</td>
+                <td><input name="surePwd" class="easyui-passwordbox inputStyle" data-options="required:true,missingMessage:'请重新输入新密码'" /></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</div>

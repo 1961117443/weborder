@@ -1,21 +1,20 @@
 ﻿using Common;
+using Common.Attributes;
 using Models;
 using MvcWebOrder.Areas;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MvcWebOrder.Controllers
 {
-    public class AdminLoginController : Controller
+    [Description("用户登录")]
+    public class AdminLoginController : BaseController
     {
         // GET: AdminLogin
-        /// <summary>
-        /// 数据操作上下文
-        /// </summary>
-        OperContext oc = OperContext.CurrentOperContext;
         #region 登录
         /// <summary>
         /// 登录
@@ -27,40 +26,26 @@ namespace MvcWebOrder.Controllers
             return View();
         }
         [HttpPost]
+        [Skip]
         public ActionResult LoginIn()
         {
-
-            string userName = Request["name"];
-            string passWord = Request["pwd"];
-            string code = string.Empty;
-            /*
-            var users = oc.BLLSession.IUserInfoBLL.GetList(u => u.UserName.Equals(userName));
-            if (users == null || users.Count == 0)
+            if (Request["lname"]==null || Request["lpwd"] == null || Request["lcode"] == null )
             {
-                return oc.PackagingAjaxMsg(AjaxStatu.err, "用户账号不存在");
+                return PackagingAjaxmsg(new AjaxMsgModel(AjaxStatu.err, "登录名|密码|验证码，传入为空！"));
             }
-            else
-            {
-                var user = users.Find(u => u.PassWord.Equals(passWord));
-                if (user != null)
-                {
-                    user.LoginTime = DateTime.Now;
-                    //把登录信息保存到session中
-                    Session["loginUser"] = user;
-                    oc.BLLSession.IUserInfoBLL.Modify(user, "LoginTime");
-                    //保存cookie
-                    //返回ajax信息
-                    return oc.PackagingAjaxMsg(AjaxStatu.ok, "登录成功", null, "/User/UserIndex");
-                }
-                else
-                {
-                    return oc.PackagingAjaxMsg(AjaxStatu.err, "密码错误");
-                }
-            }
-            */
-            return new JsonResult() { Data = Model_UserInfo.LoginIn(userName, passWord, oc.CurrentUserValidateCode) };
+            string userName = Request["lname"];
+            string passWord = Request["lpwd"];
+            string code = Request["lcode"]; 
+            return PackagingAjaxmsg(Model_UserInfo.LoginIn(userName, passWord, code));
         }
         #endregion
+
+        [HttpPost]
+        public ActionResult LoginOut()
+        {
+            Session.Abandon();
+            return PackagingAjaxmsg(new AjaxMsgModel(AjaxStatu.ok, "退出成功", "/AdminLogin/Login"));
+        }
 
         public ActionResult GetValidateCode()
         {

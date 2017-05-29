@@ -7,8 +7,26 @@
       <Diagram DiagramId="09356d9ca6e340d2bb2287fb173bbf5e" Name="Diagram1">
         <EntityTypeShape EntityType="WebOrderModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WebOrderModel.Sectionbar" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebOrderModel.UserInfo" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebOrderModel.SysModule" Width="1.5" PointX="5.375" PointY="2.75" />
+        <EntityTypeShape EntityType="WebOrderModel.UserInfo" Width="1.5" PointX="0.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebOrderModel.SysModule" Width="1.5" PointX="5.5" PointY="1.375" />
+        <EntityTypeShape EntityType="WebOrderModel.Log" Width="1.5" PointX="10.625" PointY="9.75" />
+        <EntityTypeShape EntityType="WebOrderModel.SysDept" Width="1.5" PointX="9.25" PointY="5" />
+        <EntityTypeShape EntityType="WebOrderModel.SysRole" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="WebOrderModel.SysRoleModule" Width="1.5" PointX="10.875" PointY="6.375" />
+        <EntityTypeShape EntityType="WebOrderModel.SysUserModule" Width="2.375" PointX="7.75" PointY="2.75" />
+        <EntityTypeShape EntityType="WebOrderModel.SysUserRole" Width="1.5" PointX="6" PointY="8.875" />
+        <AssociationConnector Association="WebOrderModel.FK_SysRole_SysDept" />
+        <AssociationConnector Association="WebOrderModel.FK_UserInfo_SysDept" />
+        <AssociationConnector Association="WebOrderModel.FK_SysRoleModule_SysModule" />
+        <AssociationConnector Association="WebOrderModel.FK_SysUserModule_SysModule" />
+        <AssociationConnector Association="WebOrderModel.FK_SysRoleModule_SysRole" />
+        <AssociationConnector Association="WebOrderModel.FK_SysUserRole_SysRole" />
+        <AssociationConnector Association="WebOrderModel.FK_SysUserModule_UserInfo" />
+        <AssociationConnector Association="WebOrderModel.FK_SysUserRole_UserInfo" />
+        <EntityTypeShape EntityType="WebOrderModel.SalesOrder" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="WebOrderModel.SalesOrderDetail" Width="1.5" PointX="5" PointY="13.5" />
+        <AssociationConnector Association="WebOrderModel.FK_SalesOrder_CustomerID" />
+        <AssociationConnector Association="WebOrderModel.FK_SalesOrderDetail_SectionbarID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

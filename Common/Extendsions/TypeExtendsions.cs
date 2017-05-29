@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace Common
 {
@@ -21,5 +23,29 @@ namespace Common
                 || type == typeof(Double)
                 || type == typeof(Single);
         }
+
+
+        #region 扩展 ICustomAttributeProvider
+        public static T GetAttribute<T>(this ICustomAttributeProvider provider, bool inherit) where T:Attribute
+        {
+            return provider.GetCustomAttributes(inherit).SingleOrDefault() as T;
+        } 
+
+        public static T[] GetAttributes<T>(this ICustomAttributeProvider provider, bool inherit) where T : Attribute
+        {
+            return provider.GetCustomAttributes(inherit).Cast<T>().ToArray();
+        }
+
+        public static bool AttributeExists<T>(this ICustomAttributeProvider provider, bool inherit) where T : Attribute
+        {
+            return provider.IsDefined(typeof(T), inherit);
+        }
+
+        public static string Description(this ICustomAttributeProvider provider, bool inherit=false) 
+        {
+            DescriptionAttribute desc= GetAttribute<DescriptionAttribute>(provider, inherit);
+            return desc == null ? "" : desc.Description;
+        }
+        #endregion
     }
 }

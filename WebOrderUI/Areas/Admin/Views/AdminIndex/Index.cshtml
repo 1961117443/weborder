@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+@using Models;
 
 <!DOCTYPE html>
 
@@ -11,16 +12,20 @@
     <!--jQuery库-->
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <!--jQuery Easy库 两个样式文件，两个js脚本-->
-    <link href="~/EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link id="easyuiTheme" href="~/EasyUI/themes/default/easyui.css" rel="stylesheet" />
     <link href="~/EasyUI/themes/icon.css" rel="stylesheet" />
     <!-- <script src="~/EasyUI/jquery.min.js"></script>-->
     <script src="~/EasyUI/jquery.easyui.min.js"></script>
     <script src="~/EasyUI/locale/easyui-lang-zh_CN.js"></script>
+    <!--jQuery Cookie-->
+    <script src="~/Scripts/jquery.cookie.js"></script>
     <!--自定义库-->
-    <link href="~/Css/login.css" rel="stylesheet" /> 
-    <script src="~/Userjs/index.js"></script>
     <script src="~/Userjs/processingajaxmsg.js"></script>
-    <title>网上下单系统</title>
+    <script src="~/Scripts/xzUtil.js"></script>
+    <link href="~/Css/index.css" rel="stylesheet" />
+    <script src="~/Userjs/index.js"></script>
+    <link href="~/Content/exticons.css" rel="stylesheet" />
+    <title>网上下单系统--首页</title>
 </head>
 <body class="easyui-layout">
     <div data-options="region:'north'" style="height:82px;" background-color:#E0ECFF>
@@ -30,11 +35,55 @@
             </div>
         </div>
     </div>
+    <div data-options="region:'south'" style="height:25px;">
+        <div id="userInfo" class="fl">
+            @{
+                if (ViewData["loginUser"] != null)
+                {
+                    UserInfo user = ViewData["loginUser"] as UserInfo;
+                    <span class="fontBig">当前操作员：【@user.UserName】&nbsp;</span>
+                }
+            }
+        </div>
+        <div id="copyInfo" class="fl">
+            <span class="fontBig">&copy;123</span>
+        </div>
+        <!--换肤html 退出按钮-->
+        <div id="ttHf" class="fr">
+            <a href="javascrip:void();" class="easyui-menubutton" data-options="menu:'#skinMenu',iconCls:'icon-help'" />
+            <a id="loginUser"></a>  
+            <a id="loginOut"></a>  
+        </div>
+    </div>
     <div data-options="region:'west',title:'菜单导航',split:true" style="width:180px;">
-        <ul id="menuTree"></ul>
+        <div id="aa" class="easyui-accordion" data-options="fit:true" >
+            <div title="系统模块" data-options="iconCls:'icon-save',selected:true" style="overflow:auto;padding:10px;">
+                <ul id="menuTree" style="margin:0px auto;"></ul>
+            </div>
+            <div title="其他功能" data-options="iconCls:'icon-reload'" style="padding:10px;">
+                content2
+            </div> 
+        </div> 
+       
     </div>
     <div data-options="region:'center'" style="padding:0px;background:#eee;">
-        <div id="contentTab"></div>
+        <div id="contentTab">
+            <div id="tabMenu" class="easyui-menu" style="width:120px;display:none">
+                <div type="refresh">刷新</div>
+                <div class="menu-sep"></div>
+                <div type="close">关闭</div>
+                <div type="closeAll">关闭所有</div>
+                <div type="closeOther">关闭其他</div>
+            </div>
+        </div>
+    </div>    
+    
+   <!--换肤菜单-->
+    <div id="skinMenu" style="width:120px;display:none">
+        <div onclick="xz.changeTheme('default');">默认</div>
+        <div onclick="xz.changeTheme('black');">黑色</div> 
+        <div onclick="xz.changeTheme('gray');">灰色</div>
+        <div onclick="xz.changeTheme('metro');">metro</div>
     </div>
 </body>
 </html>

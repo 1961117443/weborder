@@ -13,7 +13,47 @@
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogDate" Type="datetime" Nullable="false" />
+          <Property Name="Thread" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="LogLevel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Logger" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Exception" Type="nvarchar" MaxLength="2000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalesOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="SalesOrderDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FID" Type="int" Nullable="false" />
+          <Property Name="DNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SectionbarID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
         <EntityType Name="Sectionbar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SysDept">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -31,9 +71,44 @@
           <Property Name="AreaName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ControlName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ActionName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Modal" Type="nvarchar" MaxLength="50" />
           <Property Name="IConName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="State" Type="bit" Nullable="false" />
+          <Property Name="FormMethod" Type="int" />
+          <Property Name="IsStop" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SysRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeptId" Type="int" />
+        </EntityType>
+        <EntityType Name="SysRoleModule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SysRoleId" Type="int" Nullable="false" />
+          <Property Name="SysModuleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SysUserModule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SysUserId" Type="int" Nullable="false" />
+          <Property Name="SysModuleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SysUserRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SysUserId" Type="int" Nullable="false" />
+          <Property Name="SysRoleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -43,12 +118,181 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LoginTime" Type="datetime" />
+          <Property Name="DeptId" Type="int" />
         </EntityType>
+        <Association Name="FK_SalesOrder_CustomerID">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="SalesOrder" Type="Self.SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SalesOrder">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrderDetail_SectionbarID">
+          <End Role="Sectionbar" Type="Self.Sectionbar" Multiplicity="0..1" />
+          <End Role="SalesOrderDetail" Type="Self.SalesOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectionbar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SalesOrderDetail">
+              <PropertyRef Name="SectionbarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysRole_SysDept">
+          <End Role="SysDept" Type="Self.SysDept" Multiplicity="0..1" />
+          <End Role="SysRole" Type="Self.SysRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysDept">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysRole">
+              <PropertyRef Name="DeptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysRoleModule_SysModule">
+          <End Role="SysModule" Type="Self.SysModule" Multiplicity="1" />
+          <End Role="SysRoleModule" Type="Self.SysRoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysModule">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysRoleModule">
+              <PropertyRef Name="SysModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysRoleModule_SysRole">
+          <End Role="SysRole" Type="Self.SysRole" Multiplicity="1" />
+          <End Role="SysRoleModule" Type="Self.SysRoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysRoleModule">
+              <PropertyRef Name="SysRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserModule_SysModule">
+          <End Role="SysModule" Type="Self.SysModule" Multiplicity="1" />
+          <End Role="SysUserModule" Type="Self.SysUserModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysModule">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserModule">
+              <PropertyRef Name="SysModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserModule_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="SysUserModule" Type="Self.SysUserModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserModule">
+              <PropertyRef Name="SysUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserRole_SysRole">
+          <End Role="SysRole" Type="Self.SysRole" Multiplicity="1" />
+          <End Role="SysUserRole" Type="Self.SysUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserRole">
+              <PropertyRef Name="SysRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserRole_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="SysUserRole" Type="Self.SysUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserRole">
+              <PropertyRef Name="SysUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_SysDept">
+          <End Role="SysDept" Type="Self.SysDept" Multiplicity="0..1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysDept">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="DeptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WebOrderModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrder" EntityType="Self.SalesOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrderDetail" EntityType="Self.SalesOrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sectionbar" EntityType="Self.Sectionbar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysDept" EntityType="Self.SysDept" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysModule" EntityType="Self.SysModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysRole" EntityType="Self.SysRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysRoleModule" EntityType="Self.SysRoleModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysUserModule" EntityType="Self.SysUserModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SysUserRole" EntityType="Self.SysUserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SalesOrder_CustomerID" Association="Self.FK_SalesOrder_CustomerID">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="SalesOrder" EntitySet="SalesOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrderDetail_SectionbarID" Association="Self.FK_SalesOrderDetail_SectionbarID">
+            <End Role="Sectionbar" EntitySet="Sectionbar" />
+            <End Role="SalesOrderDetail" EntitySet="SalesOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysRole_SysDept" Association="Self.FK_SysRole_SysDept">
+            <End Role="SysDept" EntitySet="SysDept" />
+            <End Role="SysRole" EntitySet="SysRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysRoleModule_SysModule" Association="Self.FK_SysRoleModule_SysModule">
+            <End Role="SysModule" EntitySet="SysModule" />
+            <End Role="SysRoleModule" EntitySet="SysRoleModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysRoleModule_SysRole" Association="Self.FK_SysRoleModule_SysRole">
+            <End Role="SysRole" EntitySet="SysRole" />
+            <End Role="SysRoleModule" EntitySet="SysRoleModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserModule_SysModule" Association="Self.FK_SysUserModule_SysModule">
+            <End Role="SysModule" EntitySet="SysModule" />
+            <End Role="SysUserModule" EntitySet="SysUserModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserModule_UserInfo" Association="Self.FK_SysUserModule_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="SysUserModule" EntitySet="SysUserModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserRole_SysRole" Association="Self.FK_SysUserRole_SysRole">
+            <End Role="SysRole" EntitySet="SysRole" />
+            <End Role="SysUserRole" EntitySet="SysUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserRole_UserInfo" Association="Self.FK_SysUserRole_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="SysUserRole" EntitySet="SysUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_SysDept" Association="Self.FK_UserInfo_SysDept">
+            <End Role="SysDept" EntitySet="SysDept" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -61,6 +305,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SalesOrders" Relationship="WebOrderModel.FK_SalesOrder_CustomerID" FromRole="Customer" ToRole="SalesOrder" />
         </EntityType>
         <EntityType Name="Sectionbar">
           <Key>
@@ -69,6 +314,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SalesOrderDetails" Relationship="WebOrderModel.FK_SalesOrderDetail_SectionbarID" FromRole="Sectionbar" ToRole="SalesOrderDetail" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -78,12 +324,64 @@
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LoginTime" Type="DateTime" Precision="3" />
+          <Property Name="DeptId" Type="Int32" />
+          <NavigationProperty Name="SysDept" Relationship="WebOrderModel.FK_UserInfo_SysDept" FromRole="UserInfo" ToRole="SysDept" />
+          <NavigationProperty Name="SysUserModules" Relationship="WebOrderModel.FK_SysUserModule_UserInfo" FromRole="UserInfo" ToRole="SysUserModule" />
+          <NavigationProperty Name="SysUserRoles" Relationship="WebOrderModel.FK_SysUserRole_UserInfo" FromRole="UserInfo" ToRole="SysUserRole" />
         </EntityType>
         <EntityContainer Name="WebOrderEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Sectionbars" EntityType="Self.Sectionbar" />
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
           <EntitySet Name="SysModules" EntityType="WebOrderModel.SysModule" />
+          <EntitySet Name="Logs" EntityType="WebOrderModel.Log" />
+          <EntitySet Name="SysDepts" EntityType="WebOrderModel.SysDept" />
+          <EntitySet Name="SysRoles" EntityType="WebOrderModel.SysRole" />
+          <EntitySet Name="SysRoleModules" EntityType="WebOrderModel.SysRoleModule" />
+          <EntitySet Name="SysUserModules" EntityType="WebOrderModel.SysUserModule" />
+          <EntitySet Name="SysUserRoles" EntityType="WebOrderModel.SysUserRole" />
+          <AssociationSet Name="FK_SysRole_SysDept" Association="WebOrderModel.FK_SysRole_SysDept">
+            <End Role="SysDept" EntitySet="SysDepts" />
+            <End Role="SysRole" EntitySet="SysRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_SysDept" Association="WebOrderModel.FK_UserInfo_SysDept">
+            <End Role="SysDept" EntitySet="SysDepts" />
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysRoleModule_SysModule" Association="WebOrderModel.FK_SysRoleModule_SysModule">
+            <End Role="SysModule" EntitySet="SysModules" />
+            <End Role="SysRoleModule" EntitySet="SysRoleModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserModule_SysModule" Association="WebOrderModel.FK_SysUserModule_SysModule">
+            <End Role="SysModule" EntitySet="SysModules" />
+            <End Role="SysUserModule" EntitySet="SysUserModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysRoleModule_SysRole" Association="WebOrderModel.FK_SysRoleModule_SysRole">
+            <End Role="SysRole" EntitySet="SysRoles" />
+            <End Role="SysRoleModule" EntitySet="SysRoleModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserRole_SysRole" Association="WebOrderModel.FK_SysUserRole_SysRole">
+            <End Role="SysRole" EntitySet="SysRoles" />
+            <End Role="SysUserRole" EntitySet="SysUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserModule_UserInfo" Association="WebOrderModel.FK_SysUserModule_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="SysUserModule" EntitySet="SysUserModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SysUserRole_UserInfo" Association="WebOrderModel.FK_SysUserRole_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="SysUserRole" EntitySet="SysUserRoles" />
+          </AssociationSet>
+          <EntitySet Name="SalesOrders" EntityType="WebOrderModel.SalesOrder" />
+          <EntitySet Name="SalesOrderDetails" EntityType="WebOrderModel.SalesOrderDetail" />
+          <AssociationSet Name="FK_SalesOrder_CustomerID" Association="WebOrderModel.FK_SalesOrder_CustomerID">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="SalesOrder" EntitySet="SalesOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesOrderDetail_SectionbarID" Association="WebOrderModel.FK_SalesOrderDetail_SectionbarID">
+            <End Role="Sectionbar" EntitySet="Sectionbars" />
+            <End Role="SalesOrderDetail" EntitySet="SalesOrderDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SysModule">
           <Key>
@@ -98,7 +396,217 @@
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="AreaName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="Boolean" Nullable="false" />
+          <Property Name="Modal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SysRoleModules" Relationship="WebOrderModel.FK_SysRoleModule_SysModule" FromRole="SysModule" ToRole="SysRoleModule" />
+          <NavigationProperty Name="SysUserModules" Relationship="WebOrderModel.FK_SysUserModule_SysModule" FromRole="SysModule" ToRole="SysUserModule" />
+          <Property Name="FormMethod" Type="Int32" />
+          <Property Name="IsStop" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Thread" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LogLevel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Logger" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Exception" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SysDept">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SysRoles" Relationship="WebOrderModel.FK_SysRole_SysDept" FromRole="SysDept" ToRole="SysRole" />
+          <NavigationProperty Name="UserInfoes" Relationship="WebOrderModel.FK_UserInfo_SysDept" FromRole="SysDept" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="SysRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeptId" Type="Int32" />
+          <NavigationProperty Name="SysDept" Relationship="WebOrderModel.FK_SysRole_SysDept" FromRole="SysRole" ToRole="SysDept" />
+          <NavigationProperty Name="SysRoleModules" Relationship="WebOrderModel.FK_SysRoleModule_SysRole" FromRole="SysRole" ToRole="SysRoleModule" />
+          <NavigationProperty Name="SysUserRoles" Relationship="WebOrderModel.FK_SysUserRole_SysRole" FromRole="SysRole" ToRole="SysUserRole" />
+        </EntityType>
+        <EntityType Name="SysRoleModule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SysRoleId" Type="Int32" Nullable="false" />
+          <Property Name="SysModuleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SysModule" Relationship="WebOrderModel.FK_SysRoleModule_SysModule" FromRole="SysRoleModule" ToRole="SysModule" />
+          <NavigationProperty Name="SysRole" Relationship="WebOrderModel.FK_SysRoleModule_SysRole" FromRole="SysRoleModule" ToRole="SysRole" />
+        </EntityType>
+        <EntityType Name="SysUserModule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SysUserId" Type="Int32" Nullable="false" />
+          <Property Name="SysModuleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SysModule" Relationship="WebOrderModel.FK_SysUserModule_SysModule" FromRole="SysUserModule" ToRole="SysModule" />
+          <NavigationProperty Name="UserInfo" Relationship="WebOrderModel.FK_SysUserModule_UserInfo" FromRole="SysUserModule" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="SysUserRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SysUserId" Type="Int32" Nullable="false" />
+          <Property Name="SysRoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SysRole" Relationship="WebOrderModel.FK_SysUserRole_SysRole" FromRole="SysUserRole" ToRole="SysRole" />
+          <NavigationProperty Name="UserInfo" Relationship="WebOrderModel.FK_SysUserRole_UserInfo" FromRole="SysUserRole" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_SysRole_SysDept">
+          <End Type="WebOrderModel.SysDept" Role="SysDept" Multiplicity="0..1" />
+          <End Type="WebOrderModel.SysRole" Role="SysRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysDept">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysRole">
+              <PropertyRef Name="DeptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_SysDept">
+          <End Type="WebOrderModel.SysDept" Role="SysDept" Multiplicity="0..1" />
+          <End Type="WebOrderModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysDept">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="DeptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysRoleModule_SysModule">
+          <End Type="WebOrderModel.SysModule" Role="SysModule" Multiplicity="1" />
+          <End Type="WebOrderModel.SysRoleModule" Role="SysRoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysModule">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysRoleModule">
+              <PropertyRef Name="SysModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserModule_SysModule">
+          <End Type="WebOrderModel.SysModule" Role="SysModule" Multiplicity="1" />
+          <End Type="WebOrderModel.SysUserModule" Role="SysUserModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysModule">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserModule">
+              <PropertyRef Name="SysModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysRoleModule_SysRole">
+          <End Type="WebOrderModel.SysRole" Role="SysRole" Multiplicity="1" />
+          <End Type="WebOrderModel.SysRoleModule" Role="SysRoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysRoleModule">
+              <PropertyRef Name="SysRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserRole_SysRole">
+          <End Type="WebOrderModel.SysRole" Role="SysRole" Multiplicity="1" />
+          <End Type="WebOrderModel.SysUserRole" Role="SysUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserRole">
+              <PropertyRef Name="SysRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserModule_UserInfo">
+          <End Type="WebOrderModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="WebOrderModel.SysUserModule" Role="SysUserModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserModule">
+              <PropertyRef Name="SysUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SysUserRole_UserInfo">
+          <End Type="WebOrderModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="WebOrderModel.SysUserRole" Role="SysUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SysUserRole">
+              <PropertyRef Name="SysUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SalesOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="WebOrderModel.FK_SalesOrder_CustomerID" FromRole="SalesOrder" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="SalesOrderDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FID" Type="Int32" Nullable="false" />
+          <Property Name="DNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SectionbarID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Sectionbar" Relationship="WebOrderModel.FK_SalesOrderDetail_SectionbarID" FromRole="SalesOrderDetail" ToRole="Sectionbar" />
+        </EntityType>
+        <Association Name="FK_SalesOrder_CustomerID">
+          <End Type="WebOrderModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="WebOrderModel.SalesOrder" Role="SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SalesOrder">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesOrderDetail_SectionbarID">
+          <End Type="WebOrderModel.Sectionbar" Role="Sectionbar" Multiplicity="0..1" />
+          <End Type="WebOrderModel.SalesOrderDetail" Role="SalesOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectionbar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SalesOrderDetail">
+              <PropertyRef Name="SectionbarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -126,6 +634,7 @@
           <EntitySetMapping Name="UserInfoes">
             <EntityTypeMapping TypeName="WebOrderModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
                 <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -136,6 +645,9 @@
           <EntitySetMapping Name="SysModules">
             <EntityTypeMapping TypeName="WebOrderModel.SysModule">
               <MappingFragment StoreEntitySet="SysModule">
+                <ScalarProperty Name="IsStop" ColumnName="IsStop" />
+                <ScalarProperty Name="FormMethod" ColumnName="FormMethod" />
+                <ScalarProperty Name="Modal" ColumnName="Modal" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="AreaName" ColumnName="AreaName" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -144,6 +656,86 @@
                 <ScalarProperty Name="ControlName" ColumnName="ControlName" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="WebOrderModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Logger" ColumnName="Logger" />
+                <ScalarProperty Name="LogLevel" ColumnName="LogLevel" />
+                <ScalarProperty Name="Thread" ColumnName="Thread" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysDepts">
+            <EntityTypeMapping TypeName="WebOrderModel.SysDept">
+              <MappingFragment StoreEntitySet="SysDept">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysRoles">
+            <EntityTypeMapping TypeName="WebOrderModel.SysRole">
+              <MappingFragment StoreEntitySet="SysRole">
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysRoleModules">
+            <EntityTypeMapping TypeName="WebOrderModel.SysRoleModule">
+              <MappingFragment StoreEntitySet="SysRoleModule">
+                <ScalarProperty Name="SysModuleId" ColumnName="SysModuleId" />
+                <ScalarProperty Name="SysRoleId" ColumnName="SysRoleId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysUserModules">
+            <EntityTypeMapping TypeName="WebOrderModel.SysUserModule">
+              <MappingFragment StoreEntitySet="SysUserModule">
+                <ScalarProperty Name="SysModuleId" ColumnName="SysModuleId" />
+                <ScalarProperty Name="SysUserId" ColumnName="SysUserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysUserRoles">
+            <EntityTypeMapping TypeName="WebOrderModel.SysUserRole">
+              <MappingFragment StoreEntitySet="SysUserRole">
+                <ScalarProperty Name="SysRoleId" ColumnName="SysRoleId" />
+                <ScalarProperty Name="SysUserId" ColumnName="SysUserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrders">
+            <EntityTypeMapping TypeName="WebOrderModel.SalesOrder">
+              <MappingFragment StoreEntitySet="SalesOrder">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrderDetails">
+            <EntityTypeMapping TypeName="WebOrderModel.SalesOrderDetail">
+              <MappingFragment StoreEntitySet="SalesOrderDetail">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SectionbarID" ColumnName="SectionbarID" />
+                <ScalarProperty Name="DNo" ColumnName="DNo" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

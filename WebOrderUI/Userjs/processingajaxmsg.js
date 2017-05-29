@@ -37,7 +37,21 @@
                         funcErr(data);
                     }
                     break;
+                case 4:
+                    if (data.Msg) {
+                        $.alertMsg(data.Msg);
+                    }
+                    if (window!=top) {
+                        top.location.href = data.BackUrl;
+                    } else {
+                        window.location.href = data.BackUrl;
+                    }
+                    break;
+                case 5:
+                    $.alertMsg(data.Msg);
+                    break;
             }
         }
     })
 })(jQuery);
+

@@ -9,6 +9,9 @@ using System.Text;
 
 namespace Common
 {
+    /// <summary>
+    /// 生成验证码
+    /// </summary>
     public class ValidateCode
     {
         public ValidateCode()

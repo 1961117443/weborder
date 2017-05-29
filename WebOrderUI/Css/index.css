@@ -14,3 +14,18 @@
     float:right;
     overflow:hidden;
 }
+
+.fontBig{
+    font-size:12px;
+    font-weight:bold;
+    line-height:20px;
+    color:blue;
+}
+
+.fl{
+    float:left;
+}
+
+.fr{
+    float:right;
+}

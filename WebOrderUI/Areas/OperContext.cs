@@ -52,10 +52,9 @@ namespace MvcWebOrder.Areas
             JsonResult ajaxResult = new JsonResult();
             ajaxResult.Data = am;
             return ajaxResult;
-        } 
-        #endregion
-
-
+        }
+        #endregion 
+        #region 封装HTTP对象
         HttpContext ContextHttp
         {
             get
@@ -76,7 +75,7 @@ namespace MvcWebOrder.Areas
         {
             get
             {
-               return ContextHttp.Request;
+                return ContextHttp.Request;
             }
         }
 
@@ -87,7 +86,8 @@ namespace MvcWebOrder.Areas
                 return ContextHttp.Session;
             }
         }
-
+        #endregion
+        #region 当前验证码
         public string CurrentUserValidateCode
         {
             get
@@ -99,7 +99,8 @@ namespace MvcWebOrder.Areas
                 Session[AppMsg.Session_ValidateCode] = value;
             }
         }
-
+        #endregion
+        #region 当前用户
         public UserInfo CurrentUser
         {
             get
@@ -111,6 +112,59 @@ namespace MvcWebOrder.Areas
                 Session[AppMsg.Session_CurrentUser] = value;
             }
         }
+         
+        #endregion 
+        #region 保存当前登录用户的用户名
+
+        
+        HttpCookie cookie;
+        /// <summary>
+        /// 保存当前登录用户的用户名
+        /// </summary>
+        public string CurrentLoginName
+        {
+            set
+            {
+                string name = Common.SecurityHelper.MD5Encrypt32(value);
+                cookie = new HttpCookie(AppMsg.Admin_Cookie_UserLoginName, name);
+                cookie.Expires = DateTime.Now.AddDays(7);
+                cookie.Path = AppMsg.Admin_Cookie_Path;
+                Response.Cookies.Add(cookie);
+            }
+            get
+            {
+                if (Response.Cookies[AppMsg.Admin_Cookie_UserLoginName] == null)
+                {
+                    return "";
+                }
+                string name = Response.Cookies[AppMsg.Admin_Cookie_UserLoginName].Value;
+
+                return Common.SecurityHelper.MD5Encrypt(name);
+            }
+        } 
+
+        public string CurrentLoginUserID
+        {
+            set
+            {
+                string id = SecurityHelper.MD5Encrypt32(value);
+                cookie = new HttpCookie(AppMsg.Admin_Cookie_UserLoginID, id);
+                cookie.Expires = DateTime.Now.AddDays(7);
+                cookie.Path = AppMsg.Admin_Cookie_Path;
+                Response.Cookies.Add(cookie);
+            }
+            get
+            {
+                if (Response.Cookies[AppMsg.Admin_Cookie_UserLoginID]==null)
+                {
+                    return "";
+                }
+                string id = Response.Cookies[AppMsg.Admin_Cookie_UserLoginID].Value;
+                return SecurityHelper.MD5Encrypt(id);
+            }
+        }
+        #endregion
+
 
     }
 }

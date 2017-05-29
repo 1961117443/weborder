@@ -177,13 +177,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\FrameworkConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminIndexController.cs" />
+    <Compile Include="Areas\Admin\Models\Model_SysModule.cs" />
     <Compile Include="Areas\Admin\Models\Model_UserInfo.cs" />
+    <Compile Include="Areas\BasicData\BasicDataAreaRegistration.cs" />
+    <Compile Include="Areas\BasicData\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\BasicData\Controllers\SectionbarController.cs" />
+    <Compile Include="Areas\Filters\LoginValidateAttribute.cs" />
+    <Compile Include="Areas\Order\Controllers\OrderIndexController.cs" />
+    <Compile Include="Areas\Order\OrderAreaRegistration.cs" />
     <Compile Include="Areas\Tables_All_Model\Tables_All_Model.cs">
       <DependentUpon>Tables_All_Model.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -192,27 +198,26 @@
     <Compile Include="Areas\Tables_All_Model\Table_Base_Model.cs" />
     <Compile Include="Areas\User\Controllers\UserIndexController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminLoginController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Areas\OperContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Modules\SalesOrder.html" />
     <Content Include="Areas\Tables_All_Model\Tables_All_Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tables_All_Model.cs</LastGenOutput>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\exticons.css" />
+    <Content Include="Content\icons\exit.png" />
+    <Content Include="Content\icons\people.png" />
     <Content Include="Css\index.css" />
     <Content Include="Css\login.css" />
     <Content Include="Css\userinfo.css" />
@@ -235,11 +240,19 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\AdminIndex\Index.cshtml" />
     <Content Include="Areas\User\Views\web.config" />
-    <Content Include="Areas\User\Views\UserIndex\Index.cshtml" />
     <Content Include="Areas\User\Views\UserIndex\TabIndex.cshtml" />
     <Content Include="Areas\User\Views\UserIndex\UserIndex.cshtml" />
     <Content Include="Areas\User\Views\UserIndex\ShowUser.cshtml" />
     <Content Include="jquery-easyui-portal\datagrid_data.json" />
+    <Content Include="Areas\BasicData\Views\web.config" />
+    <Content Include="Areas\BasicData\Views\Sectionbar\Index.cshtml" />
+    <Content Include="Areas\User\Views\UserIndex\ModifyUserForm.cshtml" />
+    <Content Include="Areas\Order\Views\web.config" />
+    <Content Include="Areas\Order\Views\OrderIndex\Index.cshtml" />
+    <Content Include="Areas\Order\Views\OrderIndex\ShowOrderDetail.cshtml" />
+    <Content Include="Areas\Order\Views\OrderIndex\OrderView.cshtml" />
+    <Content Include="Areas\Order\Views\OrderIndex\View052301.cshtml" />
+    <Content Include="Content\jsonData\genders.json" />
     <None Include="Properties\PublishProfiles\order.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -255,11 +268,14 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\xzUtil.js" />
     <Content Include="Userjs\extension.js" />
     <Content Include="Userjs\index.js" />
     <Content Include="Userjs\login.js" />
     <Content Include="Userjs\processingajaxmsg.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Userjs\sectionbar.js" />
+    <Content Include="Userjs\showorders.js" />
     <Content Include="Userjs\showuser.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -274,34 +290,19 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\AdminLogin\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Default\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\BasicData\Models\" />
+    <Folder Include="Areas\BasicData\Views\Customer\" />
+    <Folder Include="Areas\BasicData\Views\Shared\" />
+    <Folder Include="Areas\Order\Models\" />
+    <Folder Include="Areas\Order\Views\Shared\" />
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="EasyUI\demo-mobile\" />
@@ -311,6 +312,7 @@
     <Folder Include="EasyUI\src\" />
     <Folder Include="EasyUI\themes\" />
     <Folder Include="Images\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

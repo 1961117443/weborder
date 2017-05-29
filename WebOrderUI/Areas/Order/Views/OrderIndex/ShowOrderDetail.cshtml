@@ -1,0 +1,117 @@
+﻿<!--<script src="~/Userjs/orderdetail.js"></script>
+       -->
+@{
+    Layout = null;
+}
+@using Models;
+
+<style type="text/css">
+    .inputStyle {
+        width: 200px;
+        border: 1px solid #0094ff;
+    }
+
+    #orderTabs td {
+        float: left;
+    }
+
+    .table-top {
+        padding: 20px 0px 1px 0px;
+    }
+
+    /*#order table {
+        margin: auto;
+    }*/
+</style>
+<script type="text/javascript">
+    var datagrid;
+    var combogrid;
+    $(function () {
+        console.info($(this));
+        datagrid = $('#grid').datagrid({
+            fitColumns: true,
+            //url: "/User/UserIndex/ShowUsers",
+            iconCls: "icon-save",
+            fit: true,
+            pagination: true,
+            pagePosition: "bottom",
+            checkOnSelect: false,
+            selectOnCheck: false,
+            striped: false,
+            columns: [[
+               // { field: 'ID', checkbox: true },
+                { field: 'RowNo', title: '序号', width: 50 },
+                { field: 'SectionbarID', title: '型号ID', width: 80, hidden: true },
+                { field: 'SectionbarCode', title: '型材型号', width: 80 },
+                { field: 'SectionbarName', title: '型材名称', width: 80 },
+                { field: 'Quantity', title: '数量', width: 80, align: 'left' },
+            ]],
+        });
+
+        combogrid= $('#custName').combogrid({
+            delay: 500,
+            mode: 'remote',
+            url: '/BasicData/Customer/ShowCustomer',
+            idField: 'ID',
+            textField: 'Name',
+            columns: [[
+                { field: 'ID', title: '客户编号', width: 120, sortable: false, hidden: true },
+                { field: 'Code', title: '客户编号', width: 120, sortable: true },
+                { field: 'Name', title: '客户名称', width: 400, sortable: true }
+            ]]
+        });
+
+        InitData();
+    }); 
+
+</script>
+<div id="order" style="height:100%;width:100%;">
+    <div id="orderTabs" class="easyui-tabs" data-options="fit:true,border:false">
+        <div title="订单信息" style="overflow:auto" data-options="fit:true,border:false">
+            <form method="post">
+                <table border="0" cellpadding="1" cellspacing="0" class="table-top">
+                    <tr>
+                        <td></td>
+                        <td>订&nbsp;&nbsp;单&nbsp;号：</td>
+                        <td><input id="billCode" class="easyui-textbox inputStyle" data-options="require:true" /></td>
+                        <td></td>
+                        <td>订单日期：</td>
+                        <td><input id="orderDate" class="easyui-datebox inputStyle" data-options="require:true" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>客户名称：</td>
+                        <td><input id="custName" class="easyui-combogrid inputStyle" data-options="require:true" /></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>订单备注：</td>
+                        <td><input name="remark" class="easyui-textbox inputStyle" data-options="multiline:true" style="width:475px;height:60px" /></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div title="订单明细" style="overflow:auto" data-options="fit:true,border:false">
+            <div id="grid" class="easyui-datagrid"></div>
+        </div>
+    </div>
+    
+</div>

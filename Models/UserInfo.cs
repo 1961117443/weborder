@@ -14,9 +14,23 @@ namespace Models
     
     public partial class UserInfo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserInfo()
+        {
+            this.SysUserModules = new HashSet<SysUserModule>();
+            this.SysUserRoles = new HashSet<SysUserRole>();
+        }
+    
         public int ID { get; set; }
         public string UserName { get; set; }
         public string PassWord { get; set; }
         public Nullable<System.DateTime> LoginTime { get; set; }
+        public Nullable<int> DeptId { get; set; }
+    
+        public virtual SysDept SysDept { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SysUserModule> SysUserModules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SysUserRole> SysUserRoles { get; set; }
     }
 }

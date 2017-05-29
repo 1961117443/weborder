@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MvcWebOrder.Areas.User
+namespace MvcWebOrder.Areas
 {
     public class UserAreaRegistration : AreaRegistration 
     {
@@ -17,7 +17,8 @@ namespace MvcWebOrder.Areas.User
             context.MapRoute(
                 AreaName+"_default",
                 AreaName + "/{controller}/{action}/{id}",
-                new { area= AreaName, action = "Index", controller= "UserIndex", id = UrlParameter.Optional }
+                new { area= AreaName, action = "Index", controller= "UserIndex", id = UrlParameter.Optional },
+                new string[] { "MvcWebOrder.Areas."+ AreaName + ".Controllers" }
             );
         }
     }

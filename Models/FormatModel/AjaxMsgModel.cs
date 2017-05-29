@@ -6,13 +6,17 @@ using Common;
 
 namespace Models
 {
+    /// <summary>
+    /// Ajax请求返回的数据格式
+    /// </summary>
     public class AjaxMsgModel
     {
+        #region 属性
         public string Msg { get; set; }
         public AjaxStatu Statu { get; set; }
         public string BackUrl { get; set; }
-        public object Data { get; set; }
-
+        public object Data { get; set; } 
+        #endregion 
         #region 构造函数
         public AjaxMsgModel(AjaxStatu statu, string msg, string url, object data)
         {

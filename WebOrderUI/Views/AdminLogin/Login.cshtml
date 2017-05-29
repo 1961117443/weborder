@@ -30,15 +30,18 @@
             <div id="customLogin" title="普通用户"> 
                 <div>
                     <form id="loginInputForm" method="post">
-                        <table>
-                            <tr>
-                                <th>登录名:</th>
-                                <th><input class="loginName" id="userName" type="text" /></th>
-                                <th></th>
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr></tr>
+                            <tr> 
+                                <th width="60px"></th>
+                                <th width="60px">登录名:</th>
+                                <th width="100px"><input class="loginName inputStyle" id="userName" name="lname" type="text" /></th>
+                                <th width="60px"></th>
                             </tr>
-                            <tr>
+                            <tr> 
+                                <th></th>
                                 <th>密&nbsp;&nbsp;码:</th>
-                                <th><input class="loginPwd" id="passWord" type="passWord" /></th>
+                                <th><input class="loginPwd inputStyle" id="passWord" name="lpwd" type="passWord" /></th>
                                 <th></th>
                             </tr>
                              @*<tr>
@@ -47,14 +50,21 @@
                                 <th></th>
                             </tr>*@
                                 
-                            <tr>
+                            <tr> 
+                                <th></th>
                                 <th>验证码:</th>
-                                <th><input class="validateCode" id="code" type="text" /></th>
+                                <th><input class="validateCode inputStyle" id="code" name="lcode" type="text" /></th>
+                                <th></th> 
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
                                 <th>
-                                    <img id="imgCode" src="/AdminLogin/GetValidateCode?id=1" onclick="RefershValidateCode()" />
+                                    <img id="imgCode" src="/AdminLogin/GetValidateCode?id=1" onclick="RefershValidateCode()" /> 
                                     <a href="javascript:void(0);" onclick="RefershValidateCode()">看不清</a>
                                 </th>
                             </tr>
+                            <tr></tr>
                            
                         </table>
                     </form>

@@ -46,7 +46,6 @@
     };
 
     function clearSearch() {
-        console.info("1");
         $('#datagrid').datagrid('load', {});
         $('#searchForm input').val("");
     };

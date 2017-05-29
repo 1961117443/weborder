@@ -11,37 +11,33 @@ namespace MvcWebOrder.Areas.User.Controllers
     public class UserIndexController : Controller
     {
         // GET: User/UserIndex
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
         /// <summary>
         /// 数据操作上下文
         /// </summary>
         OperContext oc = OperContext.CurrentOperContext;
 
-        #region 首页 
+        #region 获取模块列表 
         public ActionResult GetModules()
         {
-            OperContext oc = OperContext.CurrentOperContext;
-            List<SysModule> modules = oc.BLLSession.ISysModuleBLL.GetList(null, m => m.OrderID);
+            List<SysModule> modules = OperContext.CurrentOperContext.CurrentUser.PermissionModule;
             string json = string.Empty;
-            if (modules.Count > 0)
+            if (modules!=null && modules.Count > 0)
             {
                 json = DataHelper.ObjectToJson(SysModule.GetTreeNode(modules));
             }
             return Content(json);
         }
         #endregion
-
         #region Tab首页
         public ActionResult TabIndex()
         {
             return View();
         } 
-        #endregion
-
-
+        #endregion 
         #region 用户信息
         public ActionResult ShowUser()
         {
@@ -87,6 +83,13 @@ namespace MvcWebOrder.Areas.User.Controllers
         }
 
 
+        #endregion
+
+        #region 修改密码
+        public ActionResult ModifyUserForm()
+        {
+            return View();
+        } 
         #endregion
     }
 }

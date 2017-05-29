@@ -72,12 +72,37 @@
     <Compile Include="EasyUIModel\DataGrid.cs" />
     <Compile Include="EasyUIModel\TreeNode.cs" />
     <Compile Include="ExtensionModel\SysModule.cs" />
+    <Compile Include="ExtensionModel\UserInfo.cs" />
     <Compile Include="FormatModel\AjaxMsgModel.cs" />
+    <Compile Include="Log.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesOrder.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesOrderDetail.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sectionbar.cs">
       <DependentUpon>DBWebOrder.tt</DependentUpon>
     </Compile>
+    <Compile Include="SysDept.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
     <Compile Include="SysModule.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysRole.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysRoleModule.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysUserModule.cs">
+      <DependentUpon>DBWebOrder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SysUserRole.cs">
       <DependentUpon>DBWebOrder.tt</DependentUpon>
     </Compile>
     <Compile Include="UserInfo.cs">

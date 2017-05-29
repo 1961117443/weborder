@@ -119,7 +119,7 @@ namespace Common
         /// <param name="total">总记录数</param>
         /// <param name="sortConditons">排序条件</param>
         /// <returns>子集</returns>
-        public static IQueryable<T> Where<T>(IQueryable<T> source, Expression<Func<T, bool>> predicate, int pageIndex,
+        public static IQueryable<T> Where<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, int pageIndex,
             int pageSize, out int total,params PropertySortCondition[] sortConditons) where T : class, new()
         {
             //得到满足查询条件的总记录数
@@ -138,6 +138,24 @@ namespace Common
             
             
             return source != null ? source.Where(predicate).Skip((pageIndex - 1) * pageSize).Take(pageSize) : Enumerable.Empty<T>().AsQueryable();
+        }
+
+        public static IQueryable<T> Where<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate, out int total, params PropertySortCondition[] sortConditons) where T : class, new()
+        {
+            //得到满足查询条件的总记录数
+            total = source.Count(predicate);
+
+            if (sortConditons != null)
+            {
+                //对数据源进行排序
+                IOrderedQueryable<T> orderSource = null;
+                for (int i = 0; i < sortConditons.Length; i++)
+                {
+                    orderSource = i == 0 ? source.OrderBy(sortConditons[i]) : orderSource.ThenBy(sortConditons[i]);
+                }
+                source = orderSource;
+            } 
+            return source != null ? source.Where(predicate) : Enumerable.Empty<T>().AsQueryable();
         }
         #endregion
 

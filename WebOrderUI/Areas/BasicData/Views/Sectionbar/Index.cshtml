@@ -1,0 +1,51 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!--jQuery库-->
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <!--jQuery Easy库 两个样式文件，两个js脚本-->
+    <link id="easyuiTheme" href="~/EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/EasyUI/themes/icon.css" rel="stylesheet" />
+    <!-- <script src="~/EasyUI/jquery.min.js"></script>-->
+    <script src="~/EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/EasyUI/locale/easyui-lang-zh_CN.js"></script>
+    <!--自定义库-->
+    <script src="~/Userjs/processingajaxmsg.js"></script>  
+    <script src="~/Userjs/extension.js"></script>
+    <script src="~/Userjs/sectionbar.js"></script>
+    <link href="~/Css/index.css" rel="stylesheet" />
+</head>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'north',title:'过滤条件',split:true,border:false,collapsed:true" style="height:91px;">
+        <form id="searchForm">
+            <table class="tableForm datagrid-toolbar" style="width:100%;height:100%;">
+                <tr>
+                    <th>型材型号</th>
+                    <td>
+                        <input name="Code" class="easyui-textbox" style="width:312px" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>型材名称</th>
+                    <td>
+                        <input name="Name" class="easyui-textbox" style="width:312px" />
+                        <a href="javascript:void(0);" id="btnQuery">查询</a>
+                        <a href="javascript:void(0);" id="btnCancel">取消</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div data-options="region:'center',border:false" style="overflow:hidden">
+        <table id="datagrid"></table>
+    </div>
+</body>
+</html>
