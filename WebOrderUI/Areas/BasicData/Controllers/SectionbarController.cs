@@ -37,5 +37,11 @@ namespace MvcWebOrder.Areas.BasicData.Controllers
             };
             return Json(dg, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetSectionbar()
+        {
+            var list = oc.BLLSession.ISectionbarBLL.Entities.Where(s=>s.ID<10).Select(s => new { ID = s.ID, Code = s.Code, Name = s.Name }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

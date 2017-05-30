@@ -189,6 +189,7 @@
     <Compile Include="Areas\BasicData\Controllers\SectionbarController.cs" />
     <Compile Include="Areas\Filters\LoginValidateAttribute.cs" />
     <Compile Include="Areas\Order\Controllers\OrderIndexController.cs" />
+    <Compile Include="Areas\Order\Models\Model_SalesOrder.cs" />
     <Compile Include="Areas\Order\OrderAreaRegistration.cs" />
     <Compile Include="Areas\Tables_All_Model\Tables_All_Model.cs">
       <DependentUpon>Tables_All_Model.tt</DependentUpon>
@@ -249,9 +250,6 @@
     <Content Include="Areas\User\Views\UserIndex\ModifyUserForm.cshtml" />
     <Content Include="Areas\Order\Views\web.config" />
     <Content Include="Areas\Order\Views\OrderIndex\Index.cshtml" />
-    <Content Include="Areas\Order\Views\OrderIndex\ShowOrderDetail.cshtml" />
-    <Content Include="Areas\Order\Views\OrderIndex\OrderView.cshtml" />
-    <Content Include="Areas\Order\Views\OrderIndex\View052301.cshtml" />
     <Content Include="Content\jsonData\genders.json" />
     <None Include="Properties\PublishProfiles\order.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -301,7 +299,6 @@
     <Folder Include="Areas\BasicData\Models\" />
     <Folder Include="Areas\BasicData\Views\Customer\" />
     <Folder Include="Areas\BasicData\Views\Shared\" />
-    <Folder Include="Areas\Order\Models\" />
     <Folder Include="Areas\Order\Views\Shared\" />
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />

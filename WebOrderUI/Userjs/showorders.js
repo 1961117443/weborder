@@ -2,7 +2,7 @@
 
 
 $(function () {
-
+    var detailGrid;
     function formatAction(value, row, index) {
         if (row.editing) {
             var s = '<a href="#" onclick="saverow(this)">保存</a> ';
@@ -16,26 +16,8 @@ $(function () {
         }
     };
 
-    var datagrid; 
-
-    var $win;
-    $win = $('#test-window').window({
-        title: '添加课程设置信息',
-        width: 820,
-        height: 450,
-        top: ($(window).height() - 820) * 0.5,
-        left: ($(window).width() - 450) * 0.5,
-        shadow: true,
-        modal: true,
-        iconCls: 'icon-add',
-        closed: true,
-        minimizable: false,
-        maximizable: false,
-        collapsible: false
-    });
-
-    
-
+    var datagrid;   
+    /*首页订单列表*/
     datagrid = $('#datagrid').datagrid({
         fitColumns: true,
         url: "/Order/OrderIndex/ShowOrders",
@@ -70,29 +52,69 @@ $(function () {
     });
 
     
-    
-    $('#detaildatagrid').datagrid({
+    /*订单明细*/
+    detailGrid=$('#detaildatagrid').datagrid({
         fitColumns: true, 
-        title: "订单列表",
+        title: "订单明细",
         iconCls: "icon-save",
         fit: true,
-        pagination: true,
+       // pagination: true,
         pagePosition: "bottom",
         checkOnSelect: false,
         selectOnCheck: false,
-        pageList:[100],
+        pageList: [100],
+        pageSize: 100,
+        rownumbers:true,
         columns: [[
             { field: 'ID', checkbox: true },
-           { field: 'action', title: '操作', width: 80, align: 'center', formatter: formatAction },
-            { field: 'BillCode', title: '订单号', width: 80 },
-            { field: 'OrderDate', title: '订单日期', width: 140, formatter: formatDatebox, editor: 'datebox' },
-            { field: 'CustName', title: '客户名称', width: 80 },
-            { field: 'Remark', title: '备注', width: 100 }
+            { field: 'action', title: '操作', width: 80, align: 'center', formatter: formatAction },
+            { field: 'DNo', title: '订单跟踪号', width: 80 },
+            {
+                field: 'SectionbarID', title: '型材型号', width: 80,
+                formatter: function (value, row) {
+                    return row.SectionbarCode;
+                },
+                editor: {
+                    type: 'combogrid',
+                    options: { 
+                        panelWidth: 400,
+                        valueField: 'SectionbarID',
+                        textField: 'SectionbarCode',
+                        method: 'get',
+                        url: '/BasicData/Sectionbar/GetSectionbar',
+                        pagination: true,
+                        pagePosition: "bottom",
+                        columns: [[
+                            { field: 'ID', title: '型号ID', hidden:true},
+                            { field: 'Code', title: '型材型号', width: 120 },
+                            { field: 'Name', title: '型材名称', width: 120 },
+                        ]],
+                        onClickRow: function (i, r) {
+                           // var row = detailGrid.datagrid('getSelected');
+
+                            if (editIndex != undefined) {
+                                detailGrid.datagrid('updateRow', {
+                                    index: editIndex,
+                                    row: {
+                                        SectionbarID: r.ID,
+                                        SectionbarCode: r.Code,
+                                        SectionbarName: r.Name,
+                                    }
+                                })
+                            }
+
+                        }
+                    }
+                }
+            }, 
+            { field: 'SectionbarName', title: '型材名称', width: 80 },
+            { field: 'Quantity', title: '数量', width: 80, editor: 'numberbox' },
+            { field: 'Remark', title: '备注', width: 100, editor: 'textarea' }
         ]],
         toolbar: [{
             text: '增行',
             iconCls: 'icon-add',
-            handler: AddOrder,
+            handler: append,
         }, {
             text: '修改',
             iconCls: 'icon-edit',
@@ -100,8 +122,9 @@ $(function () {
         }, {
             text: '删除',
             iconCls: 'icon-remove',
-            handler: DeleteOrder,
+            handler: delRow,
         }],
+        onClickRow:onClickRow,
     });
 
     serializeObject = function (form) {
@@ -139,13 +162,21 @@ $(function () {
             detailWindow.window('close');
         },
     });
+     
 
-    $('#gender').combobox({
-        url: '~/Content/jsonData/genders.json',
-        valueField: 'id',
-        textField:'text',
+    /*客户下拉列表*/
+    $('#CustomerID').combogrid({
+        delay: 500,
+        mode: 'remote',
+        url: '/BasicData/Customer/ShowCustomer',
+        idField: 'ID',
+        textField: 'Name',
+        panelWidth:240,
+        columns: [[
+            { field: 'Code', title: '客户编号', width: 120 },
+            { field: 'Name', title: '客户名称', width: 120 },
+        ]],
     });
-
     function _search() {
         datagrid.datagrid('load', serializeObject($('#searchForm')));
     };
@@ -157,126 +188,70 @@ $(function () {
     };
 
     /*添加订单*/ 
-    function AddOrder() { 
-       var win= $('#detailWindow').window({
-            width: 800,
-            height: 550,
-            modal: true,
-            resizable: false,
-            minimizable: false,
-            maximizable: false,
-            draggable:true,
-            tools: [{
-                text: '保存',
-                iconCls: 'icon-save',
-                handler: function () { 
-                    $(this).window('close');
-                },
-            }
-            ] 
-        });
-       $.ajax({
-           type: 'post',
-           url: '/Order/OrderIndex/GetOrder',
-           success: function (data) { 
-               if (data) {
-                   if (data) {
-                       $.each(data, function (N, V) { 
-                           if (V.indexOf('Date')>0) { 
-                               $('#' + N).textbox('setText', formatDatebox(V));
-                           }
-                           else
-                           {
-                               $('#' + N).textbox('setText', V);
-                           }
-                           console.info($('#' + N).textbox('getText'));
-                       });
-                       var id = -1;
-                       if (data.ID) {
-                           id = data.ID;
-                       }      
-                       $('#detaildatagrid').datagrid({ 
-                           url: '/Order/OrderIndex/GetOrderDetail?ID='+id,
-                       })
-                   };
-                    
-               } 
-           }
-       });
-
-       win.window('open').window('maximize');
+    function AddOrder() {
+        ShowDetail({ title: '新增订单', ID:0,State:1 }); 
     };
     /*修改订单*/
     function EditOrder() {
         var row = datagrid.datagrid('getSelected');
         if (row) {
-            var win = $('#detailWindow').window({
-                title: '修改订单--[' + row.BillCode + ']',
-                width: 800,
-                height: 550,
-                modal: true,
-                resizable: false,
-                minimizable: false,
-                maximizable: false,
-                draggable: true,
-                tools: [{
-                    text: '保存',
-                    iconCls: 'icon-save',
-                    handler: function () {
-                        $(this).window('close');
-                    },
-                }
-                ]
-            });
-            $.ajax({
-                type: 'post',
-                url: '/Order/OrderIndex/GetOrder?ID=' + row.ID,
-                success: function (data) { 
-                    
-                    if (data) {
-                        $.each($("input"), function (a,b) {
-                            var N = $(b).attr("id");
-                            /*有这个控件*/
-                            if (N != undefined) {
-                                /*json对象有这个属性*/
-                                var V = data[N];
-                                if (V != undefined) {
-                                    V = V + "";
-                                    if (V.indexOf('Date') > 0) {
-                                        $('#' + N).textbox('setText', formatDatebox(V)).textbox('readonly');
-                                    }
-                                    else {
-                                        $('#' + N).textbox('setText', V).textbox('readonly');
-                                    }
-                                } 
-                            }
-                        });
-                        /*
-                        if (data) { 
-                            $.each(data, function (N, V) {
-                                V = V + "";
-                                if (V.indexOf('Date') > 0) {
-                                    $('#' + N).textbox('setText', formatDatebox(V)).textbox('readonly');
-                                }
-                                else {
-                                    $('#' + N).textbox('setText', V).textbox('readonly');
-                                } 
-                            });
-                            var id = -1;
-                            if (data.ID) {
-                                id = data.ID;
-                            }
-                            $('#detaildatagrid').datagrid({
-                                url: '/Order/OrderIndex/GetOrderDetail?ID=' + id,
-                            })
-                        };
-                        */
-                    }
-                }
-            }); 
-            win.window('open').window('maximize');
+            ShowDetail({ title: '修改订单--[' + row.BillCode + ']', ID: row.ID, State: 1 });
         }  
     };
+
+    /*打开订单明细的参数*/
+    formParam = {
+        title: "",
+        ID: 0,
+        State:0,
+    }
+    /*显示订单明细*/
+    function ShowDetail(param) {
+        var mainUrl = '/Order/OrderIndex/GetOrder/' + param.ID;
+        var detailUrl='/Order/OrderIndex/GetOrderDetail/' + param.ID;
+
+        var win = $('#detailWindow').window({
+            title: param.title,
+            modal: true,
+            resizable: false,
+            minimizable: false,
+            maximizable: false,
+            draggable: false, 
+        });
+        $.ajax({
+            type: 'post',
+            url: mainUrl,
+            success: function (data) {
+                if (data) {
+                    $.each($("input"), function (a, b) {
+                        var N = $(b).attr("id");
+                        /*有这个控件*/
+                        if (N != undefined) {
+                            /*json对象有这个属性*/
+                            var V = data[N];
+                            if (V != undefined) {
+                                V = V + "";
+                                if (V.indexOf('Date') > 0) {
+                                    $('#' + N).textbox('setText', formatDatebox(V));
+                                }
+                                else {
+                                    $('#' + N).textbox('setText', V);
+                                }
+                            }
+                            if (param.State==0) {
+                                $('#' + N).textbox('readonly');
+                            }
+                        }
+                    });  
+                    $('#detaildatagrid').datagrid({
+                        url: detailUrl,
+                    })
+                }
+            }
+        });
+        win.window('open').window('maximize');
+    }
+
     /*删除订单*/
     function DeleteOrder() {
         var rows = datagrid.datagrid('getChecked');
@@ -301,51 +276,56 @@ $(function () {
             })
         }
     };
-  //  detailWindow.window('close');
-});
 
-
-
-function showOrderDetail(param) {
-    //var w = xz.window({
-    //    width: 800,
-    //    height: 600,
-    //    title:param.title,
-    //});
-    //console.info(w);
-    //w.window('refresh', param.url);
-    //w.window('open'); 
-    var p = xz.dialog({
-        title: param.title,
-        width: 800,
-        height: 600,
-        closed: false,
-        iconCls:'icon-save',
-        href: param.url, 
-        buttons: [{
-            iconCls: 'icon-ok',
-            text: '确定',
-            handler: function () {
-                //    var f = p.find('<form>');
-                var f = $('<form method="post"></form>');
-                var g = $('#grid');
-                if (f) {
-                    f.submit();
-                } 
-                if (g) {
-                    rows = g.datagrid('getRows');
-                    console.info(rows.length);
-                } 
-                p.window('close');
-                
+    /*订单明细操作*/
+    var editIndex = undefined;
+    function endEditing() {
+        if (editIndex == undefined) {
+            return true;
+        }
+        if (detailGrid.datagrid('validateRow', editIndex)) {
+            var ed = detailGrid.datagrid('getEditor', { index: editIndex, field: 'Quantity' });
+            detailGrid.datagrid('endEdit', editIndex);
+            editIndex = undefined;
+            return true;
+        } else {
+            return false;
+        }
+    };
+    function onClickRow(index) {
+        if (editIndex != index)
+        {
+            if (endEditing()) {
+                detailGrid.datagrid('selectRow', index).datagrid('beginEdit', index);
+                editIndex = index;
             }
-        }, {
-            iconCls: 'icon-cancel',
-            text: '取消',
-            handler: function () { 
-                p.window('close');
+            else {
+                detailGrid.datagrid('selectRow', editIndex);
             }
-        }]
-    })
-}
+        }
+    }
+    /*增行*/
+    function append() {
+        if (endEditing()) { 
+            detailGrid.datagrid('appendRow', {});
+            editIndex = detailGrid.datagrid('getRows').length - 1;
+            detailGrid.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+        }
+       
+    };
+    /*删行*/
+    function delRow() {
+        if (editIndex==undefined) {
+            return
+        }
+        detailGrid.datagrid('cancelEdit', editIndex).datagrid('deleteRow', editIndex);
+        editIndex = undefined; 
+    };
 
+    function accept() {
+        if (endEditing()) {
+            detailGrid.datagrid('acceptChanges');
+            editIndex = undefined;
+        }
+    }
+}); 

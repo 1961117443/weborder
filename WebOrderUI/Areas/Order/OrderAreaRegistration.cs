@@ -2,23 +2,24 @@
 
 namespace MvcWebOrder.Areas
 {
-    public class OrderAreaRegistration : AreaRegistration 
+    public class OrderAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "Order";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                AreaName+ "_default",
-                AreaName + "/{controller}/{action}/{id}",
-                new { area=AreaName,controller= "OrderIndex", action = "Index", id = UrlParameter.Optional },
-                new string[] { "MvcWebOrder.Areas."+AreaName+".Controllers" }
+                name: AreaName + "_default",
+               url: AreaName + "/{controller}/{action}/{id}",
+               defaults: new { area = AreaName, controller = "OrderIndex", action = "Index", id = UrlParameter.Optional },
+                constraints: new { id = @"^\d*$" },
+              namespaces: new string[] { "MvcWebOrder.Areas." + AreaName + ".Controllers" }
             );
         }
     }

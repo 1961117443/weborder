@@ -59,12 +59,12 @@ $(function () {
         if ($tab.tabs('exists', node.text)) {
             var ct = $tab.tabs('getSelected');
             if (ct.panel('options').title == node.text) {
-                $tab.tabs('update', {
-                    tab: ct,
-                    options: {
-                        content: xz.newFrame(node.attributes.url),
-                    }
-                });
+                //$tab.tabs('update', {
+                //    tab: ct,
+                //    options: {
+                //        content: xz.newFrame(node.attributes.url),
+                //    }
+                //});
             }
             $tab.tabs('select', node.text);
         }

@@ -48,25 +48,25 @@ namespace MvcWebOrder.Areas.Order.Controllers
 
         #endregion 
 
-       
-        public ActionResult GetOrder()
+        public ActionResult GetOrder(int id)
         {
-            string ID = Request["ID"] ?? string.Empty;
-            var orders = oc.BLLSession.ISalesOrderBLL.Entities.Where(s => s.ID.ToString() == ID).Select(o => new { ID=o.ID, BillCode = o.BillCode, OrderDate = o.OrderDate, CustomerID = o.CustomerID, CustomerName = o.Customer.Name }).FirstOrDefault();
-            if (orders==null)
+            SalesOrder order = null;
+            if (id>0)
             {
-                return Json(new { BillCode = "tt17051101", OrderDate = DateTime.Now }, JsonRequestBehavior.AllowGet);
+               order = oc.BLLSession.ISalesOrderBLL.Entities.FirstOrDefault(s => s.ID == id);
             }
-            
-            return Json(orders, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult GetOrderDetail()
+            else
+            {
+                order = Model_SalesOrder.CreateOrder();
+            }
+            var obj = new { ID = order.ID, BillCode = order.BillCode, OrderDate = order.OrderDate, CustomerID = order.Customer == null?"": order.Customer.ID.ToString(), CustomerName = order.Customer==null?"": order.Customer.Name };
+           
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }  
+        public ActionResult GetOrderDetail(int id)
         {
-            string ID = Request["ID"] ?? "-1";
-            int totalCount = 0; 
-            
-            var orders = oc.BLLSession.ISalesOrderDetailBLL.Entities.Where(o => 1 == 1, Page, Rows, out totalCount, new PropertySortCondition("ID")).Select(d => new { ID = d.ID, SectionbarID = d.SectionbarID, SectionbarCode = d.Sectionbar.Code, SectionbarName = d.Sectionbar.Name, Quantity = d.Quantity }).ToList();
+            int totalCount = 0;  
+            var orders = oc.BLLSession.ISalesOrderDetailBLL.Entities.Where(o => o.FID==id).Select(d => new { ID = d.ID, SectionbarID = d.SectionbarID, SectionbarCode = d.Sectionbar.Code, SectionbarName = d.Sectionbar.Name, Quantity = d.Quantity }).ToList();
             DataGrid dg = new DataGrid()
             {
                 total = totalCount,

@@ -7,6 +7,7 @@ using Common;
 using Models;
 using MvcWebOrder.Areas;
 using Common.Attributes;
+using System.Text;
 
 namespace MvcWebOrder.Controllers
 {
@@ -23,7 +24,12 @@ namespace MvcWebOrder.Controllers
         #region 包装成 AjaxMsgModel 返回前端
         protected virtual JsonResult PackagingAjaxmsg(AjaxMsgModel amm)
         {
-            return new JsonResult() { Data = amm };
+            JsonResult jr = new JsonResult();
+            jr.Data = amm;
+            jr.ContentType = "application/json";
+            jr.ContentEncoding = Encoding.UTF8;
+            jr.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return jr;
         }
 
         protected virtual JsonResult PackagingAjaxmsg(AjaxStatu statu, string msg, string url = "", object data = null)

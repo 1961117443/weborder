@@ -245,3 +245,6 @@ ModelManifest.xml
 .fake/
 *.zip
 /WebOrderUI/logs/log4netfile.txt
+*.txt(20170502)
+*.txt(20170502)
+/WebOrderUI/logs/log4netfile.txt(20170502)
