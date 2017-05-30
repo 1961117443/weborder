@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
 
 namespace MvcWebOrder.Areas.BasicData.Controllers
 {
@@ -40,8 +41,15 @@ namespace MvcWebOrder.Areas.BasicData.Controllers
 
         public ActionResult GetSectionbar()
         {
-            var list = oc.BLLSession.ISectionbarBLL.Entities.Where(s=>s.ID<10).Select(s => new { ID = s.ID, Code = s.Code, Name = s.Name }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            int totalCount = 0;
+            var list = oc.BLLSession.ISectionbarBLL.Entities.Where(s=>1==1,Page,Rows,out totalCount,new PropertySortCondition("ID")).Select(s => new { ID = s.ID, Code = s.Code, Name = s.Name }).ToList();
+            DataGrid dg = new DataGrid()
+            {
+                total = totalCount,
+                rows = list,
+                footer = null
+            };
+            return Json(dg, JsonRequestBehavior.AllowGet);
         }
     }
 }

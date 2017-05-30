@@ -78,37 +78,41 @@ $(function () {
                     type: 'combogrid',
                     options: { 
                         panelWidth: 400,
-                        valueField: 'SectionbarID',
-                        textField: 'SectionbarCode',
-                        method: 'get',
+                        idField:'ID',
+                        textField:'Code',
+
+                        //valueField: 'SectionbarID',
+                        //textField: 'SectionbarCode',
+                       // method: 'get',
                         url: '/BasicData/Sectionbar/GetSectionbar',
                         pagination: true,
                         pagePosition: "bottom",
+                        pageSize:20,
                         columns: [[
                             { field: 'ID', title: '型号ID', hidden:true},
                             { field: 'Code', title: '型材型号', width: 120 },
                             { field: 'Name', title: '型材名称', width: 120 },
                         ]],
                         onClickRow: function (i, r) {
-                           // var row = detailGrid.datagrid('getSelected');
-
-                            if (editIndex != undefined) {
-                                detailGrid.datagrid('updateRow', {
-                                    index: editIndex,
-                                    row: {
-                                        SectionbarID: r.ID,
-                                        SectionbarCode: r.Code,
-                                        SectionbarName: r.Name,
-                                    }
-                                })
+                            var rows = detailGrid.datagrid('getRows');
+                            if (rows!=undefined && rows.length>0 && editIndex!=undefined) {
+                                var row = rows[editIndex];
+                                row.SectionbarID = r.ID;
+                                row.SectionbarCode = r.Code;
+                                row.SectionbarName = r.Name;
+                                RefreshRow(editIndex);
                             }
-
+                            
                         }
+                        
                     }
                 }
             }, 
             { field: 'SectionbarName', title: '型材名称', width: 80 },
-            { field: 'Quantity', title: '数量', width: 80, editor: 'numberbox' },
+            {
+                field: 'Quantity', title: '数量', width: 80,
+                editor:'numberbox' 
+            },
             { field: 'Remark', title: '备注', width: 100, editor: 'textarea' }
         ]],
         toolbar: [{
@@ -279,12 +283,13 @@ $(function () {
 
     /*订单明细操作*/
     var editIndex = undefined;
+    var editRow = undefined;
     function endEditing() {
         if (editIndex == undefined) {
             return true;
         }
         if (detailGrid.datagrid('validateRow', editIndex)) {
-            var ed = detailGrid.datagrid('getEditor', { index: editIndex, field: 'Quantity' });
+            //var ed = detailGrid.datagrid('getEditor', { index: editIndex, field: 'Quantity' });
             detailGrid.datagrid('endEdit', editIndex);
             editIndex = undefined;
             return true;
@@ -292,12 +297,13 @@ $(function () {
             return false;
         }
     };
-    function onClickRow(index) {
+    function onClickRow(index,row) {
         if (editIndex != index)
         {
             if (endEditing()) {
                 detailGrid.datagrid('selectRow', index).datagrid('beginEdit', index);
                 editIndex = index;
+                editRow = row;
             }
             else {
                 detailGrid.datagrid('selectRow', editIndex);
@@ -306,9 +312,9 @@ $(function () {
     }
     /*增行*/
     function append() {
-        if (endEditing()) { 
-            detailGrid.datagrid('appendRow', {});
+        if (endEditing()) {
             editIndex = detailGrid.datagrid('getRows').length - 1;
+            detailGrid.datagrid('appendRow', {DNo:editIndex+1}); 
             detailGrid.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
         }
        
@@ -319,13 +325,22 @@ $(function () {
             return
         }
         detailGrid.datagrid('cancelEdit', editIndex).datagrid('deleteRow', editIndex);
-        editIndex = undefined; 
+        editIndex = undefined;
+        editRow = undefined;
     };
 
     function accept() {
         if (endEditing()) {
             detailGrid.datagrid('acceptChanges');
             editIndex = undefined;
+            editRow = undefined;
         }
+    };
+
+    /*编辑状态下刷新数据*/
+    function RefreshRow(index) {
+        if (index!=undefined) {
+            detailGrid.datagrid('endEdit', index).datagrid('refreshRow', index).datagrid('beginEdit', index);
+        } 
     }
 }); 
