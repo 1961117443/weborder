@@ -14,20 +14,8 @@ namespace Models
     
     public partial class SysDept
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SysDept()
-        {
-            this.SysRoles = new HashSet<SysRole>();
-            this.UserInfoes = new HashSet<UserInfo>();
-        }
-    
         public int ID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SysRole> SysRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserInfo> UserInfoes { get; set; }
     }
 }

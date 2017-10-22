@@ -14,12 +14,11 @@ namespace Models
     
     public partial class SalesOrder
     {
-        public int ID { get; set; }
+        public System.Guid ID { get; set; }
+        public int AutoID { get; set; }
         public string BillCode { get; set; }
         public System.DateTime OrderDate { get; set; }
         public int CustomerID { get; set; }
         public string Remark { get; set; }
-    
-        public virtual Customer Customer { get; set; }
     }
 }

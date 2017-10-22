@@ -18,7 +18,7 @@ namespace MvcWebOrder.Areas
                 name: AreaName + "_default",
                url: AreaName + "/{controller}/{action}/{id}",
                defaults: new { area = AreaName, controller = "OrderIndex", action = "Index", id = UrlParameter.Optional },
-                constraints: new { id = @"^\d*$" },
+               // constraints: new { id = @"^\d*$" },
               namespaces: new string[] { "MvcWebOrder.Areas." + AreaName + ".Controllers" }
             );
         }

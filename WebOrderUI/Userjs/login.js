@@ -48,6 +48,12 @@ $(function () {
         border: false,
         narrow: true,
     });
+
+    $('#code').bind('keyup', function () {
+        if (event.keyCode ==13) {
+            $('#loginInputForm').submit();
+        } 
+        });
 });
 
 function InitData() {

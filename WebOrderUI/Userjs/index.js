@@ -74,6 +74,9 @@ $(function () {
                 content: xz.newFrame(node.attributes.url),
                 closable: true,
                 fit: true,
+                onLoad: function (p) {
+                    console.info(p);
+                }
             });
         }
     }

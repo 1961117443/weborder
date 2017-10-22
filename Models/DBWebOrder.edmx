@@ -29,7 +29,8 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AutoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BillCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
@@ -39,9 +40,10 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FID" Type="int" Nullable="false" />
-          <Property Name="DNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MainID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AutoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TraceCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SectionbarID" Type="int" />
           <Property Name="Quantity" Type="int" />
         </EntityType>
@@ -120,30 +122,6 @@
           <Property Name="LoginTime" Type="datetime" />
           <Property Name="DeptId" Type="int" />
         </EntityType>
-        <Association Name="FK_SalesOrder_CustomerID">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="SalesOrder" Type="Self.SalesOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SalesOrder">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalesOrderDetail_SectionbarID">
-          <End Role="Sectionbar" Type="Self.Sectionbar" Multiplicity="0..1" />
-          <End Role="SalesOrderDetail" Type="Self.SalesOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sectionbar">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SalesOrderDetail">
-              <PropertyRef Name="SectionbarID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SysRole_SysDept">
           <End Role="SysDept" Type="Self.SysDept" Multiplicity="0..1" />
           <End Role="SysRole" Type="Self.SysRole" Multiplicity="*" />
@@ -253,14 +231,6 @@
           <EntitySet Name="SysUserModule" EntityType="Self.SysUserModule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysUserRole" EntityType="Self.SysUserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_SalesOrder_CustomerID" Association="Self.FK_SalesOrder_CustomerID">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="SalesOrder" EntitySet="SalesOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesOrderDetail_SectionbarID" Association="Self.FK_SalesOrderDetail_SectionbarID">
-            <End Role="Sectionbar" EntitySet="Sectionbar" />
-            <End Role="SalesOrderDetail" EntitySet="SalesOrderDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_SysRole_SysDept" Association="Self.FK_SysRole_SysDept">
             <End Role="SysDept" EntitySet="SysDept" />
             <End Role="SysRole" EntitySet="SysRole" />
@@ -305,7 +275,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SalesOrders" Relationship="WebOrderModel.FK_SalesOrder_CustomerID" FromRole="Customer" ToRole="SalesOrder" />
         </EntityType>
         <EntityType Name="Sectionbar">
           <Key>
@@ -314,7 +283,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SalesOrderDetails" Relationship="WebOrderModel.FK_SalesOrderDetail_SectionbarID" FromRole="Sectionbar" ToRole="SalesOrderDetail" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -374,14 +342,6 @@
           </AssociationSet>
           <EntitySet Name="SalesOrders" EntityType="WebOrderModel.SalesOrder" />
           <EntitySet Name="SalesOrderDetails" EntityType="WebOrderModel.SalesOrderDetail" />
-          <AssociationSet Name="FK_SalesOrder_CustomerID" Association="WebOrderModel.FK_SalesOrder_CustomerID">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="SalesOrder" EntitySet="SalesOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesOrderDetail_SectionbarID" Association="WebOrderModel.FK_SalesOrderDetail_SectionbarID">
-            <End Role="Sectionbar" EntitySet="Sectionbars" />
-            <End Role="SalesOrderDetail" EntitySet="SalesOrderDetails" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SysModule">
           <Key>
@@ -397,8 +357,6 @@
           <Property Name="AreaName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="Boolean" Nullable="false" />
           <Property Name="Modal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SysRoleModules" Relationship="WebOrderModel.FK_SysRoleModule_SysModule" FromRole="SysModule" ToRole="SysRoleModule" />
-          <NavigationProperty Name="SysUserModules" Relationship="WebOrderModel.FK_SysUserModule_SysModule" FromRole="SysModule" ToRole="SysUserModule" />
           <Property Name="FormMethod" Type="Int32" />
           <Property Name="IsStop" Type="Boolean" Nullable="false" />
         </EntityType>
@@ -421,8 +379,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SysRoles" Relationship="WebOrderModel.FK_SysRole_SysDept" FromRole="SysDept" ToRole="SysRole" />
-          <NavigationProperty Name="UserInfoes" Relationship="WebOrderModel.FK_UserInfo_SysDept" FromRole="SysDept" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="SysRole">
           <Key>
@@ -565,48 +521,24 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="AutoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BillCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="Remark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="WebOrderModel.FK_SalesOrder_CustomerID" FromRole="SalesOrder" ToRole="Customer" />
         </EntityType>
         <EntityType Name="SalesOrderDetail">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FID" Type="Int32" Nullable="false" />
-          <Property Name="DNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="MainID" Type="Guid" Nullable="false" />
+          <Property Name="AutoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TraceCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SectionbarID" Type="Int32" />
           <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="Sectionbar" Relationship="WebOrderModel.FK_SalesOrderDetail_SectionbarID" FromRole="SalesOrderDetail" ToRole="Sectionbar" />
         </EntityType>
-        <Association Name="FK_SalesOrder_CustomerID">
-          <End Type="WebOrderModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="WebOrderModel.SalesOrder" Role="SalesOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SalesOrder">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalesOrderDetail_SectionbarID">
-          <End Type="WebOrderModel.Sectionbar" Role="Sectionbar" Multiplicity="0..1" />
-          <End Type="WebOrderModel.SalesOrderDetail" Role="SalesOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sectionbar">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SalesOrderDetail">
-              <PropertyRef Name="SectionbarID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -725,6 +657,7 @@
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -734,8 +667,9 @@
               <MappingFragment StoreEntitySet="SalesOrderDetail">
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="SectionbarID" ColumnName="SectionbarID" />
-                <ScalarProperty Name="DNo" ColumnName="DNo" />
-                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="TraceCode" ColumnName="TraceCode" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="MainID" ColumnName="MainID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

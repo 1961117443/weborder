@@ -13,8 +13,10 @@ namespace MvcWebOrder.Areas
         {
             return new SalesOrder()
             {
+                ID = Guid.NewGuid(),
                 BillCode = DateTime.Now.ToString("yyyyMMdd"), 
-                OrderDate = DateTime.Now
+                OrderDate = DateTime.Now,
+                Remark = ""
             };
         }
     }

@@ -14,12 +14,11 @@ namespace Models
     
     public partial class SalesOrderDetail
     {
-        public int ID { get; set; }
-        public int FID { get; set; }
-        public string DNo { get; set; }
+        public System.Guid ID { get; set; }
+        public System.Guid MainID { get; set; }
+        public int AutoID { get; set; }
+        public string TraceCode { get; set; }
         public Nullable<int> SectionbarID { get; set; }
         public Nullable<int> Quantity { get; set; }
-    
-        public virtual Sectionbar Sectionbar { get; set; }
     }
 }

@@ -14,13 +14,6 @@ namespace Models
     
     public partial class SysModule
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SysModule()
-        {
-            this.SysRoleModules = new HashSet<SysRoleModule>();
-            this.SysUserModules = new HashSet<SysUserModule>();
-        }
-    
         public int ID { get; set; }
         public string Name { get; set; }
         public int ParentID { get; set; }
@@ -33,10 +26,5 @@ namespace Models
         public string Modal { get; set; }
         public Nullable<int> FormMethod { get; set; }
         public bool IsStop { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SysRoleModule> SysRoleModules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SysUserModule> SysUserModules { get; set; }
     }
 }
